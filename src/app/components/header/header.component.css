@@ -2,9 +2,17 @@
   background-color: var(--cor-principal);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 4px 3em;
 }
+
+.center {
+  justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
 .button_img{
   background-color: transparent;
   border: 0;
