@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CadastroComponent } from "./components/cadastro/cadastro.component";
-import { HeaderComponent } from "./components/header/header.component";
+import { HeaderComponent } from './components/shared/header/header.component';
+
 
 @Component({
   selector: 'app-root',
