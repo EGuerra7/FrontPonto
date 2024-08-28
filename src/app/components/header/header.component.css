@@ -1,0 +1,36 @@
+.header_container{
+  background-color: var(--cor-principal);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 3em;
+}
+.button_img{
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: .15s;
+
+  &:hover{
+    transform: scale(1.1);
+  }
+}
+
+.header_container_nav{
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.header_container_nav button{
+  background-color: transparent;
+  color: var(--cor-secundaria);
+  border: 0;
+  font-size: 20px;
+  transition: .15s;
+  cursor: pointer;
+
+  &:hover{
+    transform: scale(1.1);
+  }
+}
