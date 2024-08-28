@@ -1,14 +1,15 @@
 <main>
   <header>
-    <button>Cadastro</button>
+    <p>Usuario</p>
+    <button class="btn-cadastro" [routerLink]="['/login']">Login</button>
   </header>
-  <div>
-  <img src="/assets/Logo Fund Branca 1.svg">
-  <h1>Ponto Eletrônico</h1>
+  <div class="Logo-principal">
+    <img src="/assets/Logo Fund Branca 1.svg">
+    <h1>Ponto Eletrônico</h1>
   </div>
   <nav>
-    <button>Relátorio</button>
-    <button>Pontos</button>
-    <button>Retroativo</button>
+    <button [routerLink]="['/retroativo']">Retroativo</button>
+    <button [routerLink]="['/pontos']">Pontos</button>
+    <button [routerLink]="['/relatorio']">Relatório</button>
   </nav>
 </main>
