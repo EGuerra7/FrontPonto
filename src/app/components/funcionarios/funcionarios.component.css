@@ -1,0 +1,75 @@
+.funcionario-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--fonte);
+}
+
+.funcionario-titulo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.funcionario-titulo button{
+  position: absolute;
+  top: 7em;
+  right: 5em;
+
+  background-color: green;
+  color: var(--cor-secundaria);
+  font-family: var(--fonte);
+  border: 0;
+  padding: 9px 1.5em;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover{
+    background-color: rgb(6, 169, 6);
+  }
+}
+
+table{
+  width: 70%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  border-radius: 10px;
+}
+
+thead td {
+  padding: 12px;
+}
+
+tbody tr {
+  border-bottom: 1px solid gray;
+}
+
+tbody td {
+  padding: 12px;
+  background-color: rgb(212, 210, 210);
+}
+
+td button{
+  background-color: transparent;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover{
+    background-color: gray;
+  }
+}
+
+td .delete:hover{
+  color: red;
+}

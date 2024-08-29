@@ -1,0 +1,32 @@
+<app-header [showNav]="true" [layout]="'space-between'"></app-header>
+<main class="funcionario-container">
+  <div class="funcionario-titulo">
+    <h1>Funcionários</h1>
+    <button [routerLink]="['/cadastro']">Cadastrar</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Nome Completo</td>
+        <td>Cargo</td>
+        <td>Carga Horária</td>
+        <td>Permissão</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of listaDeUsuario">
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nome }}</td>
+        <td>{{ usuario.cargo }}</td>
+        <td>{{ usuario.cargaHoraria }}</td>
+        <td>{{ usuario.permissao }}</td>
+        <td><button><mat-icon>edit</mat-icon></button></td>
+        <td><button (click)="deletarUsuario(usuario)" class="delete"><mat-icon>delete</mat-icon></button></td>
+      </tr>
+    </tbody>
+  </table>
+
+</main>

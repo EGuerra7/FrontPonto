@@ -1,8 +1,9 @@
+import { Usuario } from './../model/usuario.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../model/usuario.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,15 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  public registrarUsuario(usuario: Usuario): Observable<Usuario>{
+  public registrarUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.API, usuario);
   }
 
-  public buscarUsuarios(): Observable<Usuario[]>{
+  public buscarUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.API);
+  }
+
+  public DeletarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.delete<Usuario>(this.API + "/" + usuario.id);
   }
 }

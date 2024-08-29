@@ -3,6 +3,21 @@
   margin: 0;
 }
 
+.voltar{
+  position: absolute;
+  left: 5%;
+  top: 2.8%;
+  background-color: transparent;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover{
+    color: gray;
+  }
+}
+
 .bluebox-container-itens, .bluebox-formulario{
   display: flex;
   flex-direction: column;

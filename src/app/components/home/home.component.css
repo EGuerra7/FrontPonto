@@ -22,7 +22,7 @@ header{
 }
 
 .Logo-principal img{
-  width: 370px;
+  width: 330px;
 }
 
 nav{
@@ -41,7 +41,6 @@ button{
   color: var(--cor-secundaria);
   transition: .2s;
   cursor: pointer;
-
   &:hover{
     transform: scale(1.1);
   }

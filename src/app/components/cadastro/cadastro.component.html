@@ -1,4 +1,6 @@
-<app-header [layout]="'center'" class="cabecalho"></app-header>
+<app-header [layout]="'center'" class="cabecalho">
+  <button [routerLink]="['/relatorio']" class="voltar"><mat-icon>west</mat-icon></button>
+</app-header>
 <app-bluebox>
   <div class="bluebox-container-itens">
     <h1>Cadastro</h1>
@@ -10,7 +12,7 @@
       <input type="email" formControlName="email" placeholder="Email">
       <input type="password" formControlName="senha" placeholder="Senha">
 
-      <button class="btn" (click)="cadastrar()">Cadastrar</button>
+      <button class="btn" type="submit" (click)="cadastrar()">Cadastrar</button>
     </form>
   </div>
 </app-bluebox>

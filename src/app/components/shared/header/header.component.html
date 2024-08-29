@@ -1,7 +1,5 @@
 <header [ngClass]="layout" class="header_container">
-  <div *ngIf="customContent">
-    <ng-container *ngTemplateOutlet="customContent"></ng-container>
-  </div>
+  <ng-content></ng-content>
 
   <button [routerLink]="['/home']" class="button_img"><img src="/assets/Logo Fund Branca 1.svg"></button>
 
