@@ -2,15 +2,15 @@
 <app-bluebox>
   <div class="bluebox-container-itens">
     <h1>Cadastro</h1>
-    <form class="bluebox-formulario">
-      <input type="text" placeholder="UID">
-      <input type="text" placeholder="Nome Completo">
-      <input type="text" placeholder="Função - Empresa">
-      <input type="text" placeholder="Carga Horária">
-      <input type="email" placeholder="Email">
-      <input type="password" placeholder="Senha">
+    <form class="bluebox-formulario" [formGroup]="usuarioForm">
+      <input type="text" formControlName="id" placeholder="UID">
+      <input type="text" formControlName="nome" placeholder="Nome Completo">
+      <input type="text" formControlName="cargo" placeholder="Função - Empresa">
+      <input type="text" formControlName="cargaHoraria" placeholder="Carga Horária">
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="senha" placeholder="Senha">
 
-      <button class="btn" type="submit">Cadastrar</button>
+      <button class="btn" (click)="cadastrar()">Cadastrar</button>
     </form>
   </div>
 </app-bluebox>
