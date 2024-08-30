@@ -34,8 +34,6 @@ export class CadastroComponent {
   cadastrar() {
     const formData: Usuario = this.usuarioForm.value;
 
-    console.log(formData);
-
     this.usuarioService.registrarUsuario(formData).subscribe(response => {
       alert("Usuario cadastrado com sucesso!");
       this.usuarioForm.reset();

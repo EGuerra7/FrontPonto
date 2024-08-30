@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3em;
   font-family: var(--fonte);
 }
 
@@ -11,9 +12,13 @@
   align-items: center;
 }
 
+.funcionario-titulo h1{
+  font-size: 40px;
+}
+
 .funcionario-titulo button{
   position: absolute;
-  top: 7em;
+  top: 8em;
   right: 5em;
 
   background-color: green;
@@ -34,7 +39,7 @@ table{
   width: 70%;
   border-collapse: collapse;
   margin: 25px 0;
-  font-size: 18px;
+  font-size: 15px;
   text-align: center;
   border: 1px solid #ddd;
 }
@@ -73,3 +78,5 @@ td button{
 td .delete:hover{
   color: red;
 }
+
+

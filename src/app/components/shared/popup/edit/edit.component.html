@@ -1,0 +1,25 @@
+<main>
+  <h1 mat-dialog-title>Editar Usuário</h1>
+  <div mat-dialog-content>
+    <form class="bluebox-formulario" [formGroup]="usuarioForm">
+      <div class="formulario_div">
+        <input type="text" formControlName="id" placeholder="UID" [(ngModel)]="data.id">
+        <input type="text" formControlName="nome" placeholder="Nome Completo" [(ngModel)]="data.nome">
+        <input type="text" formControlName="cargo" placeholder="Função - Empresa" [(ngModel)]="data.cargo">
+      </div>
+      <div class="formulario_div">
+        <input type="text" formControlName="cargaHoraria" placeholder="Carga Horária" [(ngModel)]="data.cargaHoraria">
+        <input type="email" formControlName="email" placeholder="Email" [(ngModel)]="data.email">
+        <input type="password" formControlName="senha" placeholder="Senha" [(ngModel)]="data.senha">
+        <select formControlName="permissao" [(ngModel)]="data.permissao">
+          <option value="Administrador">Administrador</option>
+          <option value="Funcionário">Funcionário</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="btn_action">
+    <button class="close" (click)="onNoClick()" mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
+    <button class="check" (click)="editar()" type="submit"><mat-icon>check</mat-icon></button>
+  </div>
+</main>

@@ -1,0 +1,94 @@
+main{
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte);
+}
+
+
+.bluebox-container-itens, .bluebox-formulario{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.formulario_div{
+display: flex;
+gap: 8px;
+}
+
+h1{
+  font-size: 30px;
+}
+
+.bluebox-container-itens{
+  gap: 35px;
+}
+
+.bluebox-formulario{
+  gap: 31px;
+}
+
+.bluebox-formulario input, select{
+  border: 0;
+  width: 264px;
+  height: 42px;
+  text-align: center;
+  border-radius: 10px;
+  font-family: var(--fonte);
+  background-color: rgba(209, 208, 208, 0.587);
+
+  &::placeholder{
+    color: black;
+    font-family: var(--fonte);
+  }
+}
+
+.btn{
+  background-color: var(--cor-secundaria);
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 16px;
+  color: var(--cor-principal);
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover{
+    box-shadow: 0 0 10px var(--cor-secundaria);
+  }
+}
+
+.btn_action{
+  display: flex;
+  width: 100%;
+  align-items: start;
+  gap: 30px;
+}
+
+.btn_action button{
+  border: 0;
+  padding: 5px 7em;
+  cursor: pointer;
+  border-radius: 15px;
+  color: white;
+  transition: .2s;
+}
+
+.close{
+  background-color: red;
+  &:hover{
+    background-color: rgb(241, 69, 69);
+  }
+}
+
+.check{
+  background-color: green;
+  &:hover{
+    background-color: rgb(34, 211, 34);
+  }
+}
