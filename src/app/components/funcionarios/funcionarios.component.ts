@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { EditComponent } from '../shared/popup/edit/edit.component';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -28,7 +29,8 @@ export class FuncionariosComponent implements OnInit {
     private usuarioService: UsuarioService,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.ngOnInit();
    }
@@ -91,10 +93,19 @@ export class FuncionariosComponent implements OnInit {
   deletarUsuario(usuario: Usuario) {
     this.usuarioService.DeletarUsuario(usuario).subscribe(response => {
       this.ngOnInit();
-      alert("Usuario " + usuario.nome + " deletado com sucesso!");
+      let msg = "Usuário " + usuario.nome + " deletado com sucesso!";
+      this.showSuccess(msg, "Usuário deletado!")
     }, (error) => {
-      alert('Error ao deletar!');
+      this.showError()
     })
+  }
+
+  showSuccess( msg: string, titulo: string) {
+    this.toastr.success(msg, titulo);
+  }
+
+  showError(){
+    this.toastr.error("Ocorreu algum erro ao deletar o usuário.", "Error!");
   }
 
 

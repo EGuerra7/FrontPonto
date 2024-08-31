@@ -11,6 +11,7 @@ import { UsuarioService } from '../service/usuario.service';
 import { Ponto } from '../model/ponto.model';
 import { PontoService } from '../service/ponto.service';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-retroativo',
@@ -34,7 +35,8 @@ export class RetroativoComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef,
-    private pontoService: PontoService
+    private pontoService: PontoService,
+    private toastr: ToastrService
   ){}
 
   ngOnInit() {
@@ -61,13 +63,12 @@ export class RetroativoComponent implements OnInit {
     }
 
     this.pontoService.registrar(dadosParaEnviar).subscribe(response => {
-      console.log("Ponto efetuado com sucesso!");
+      this.showSuccess(pontoData.descricao!, "Ponto registrado!")
       this.pontoForm.reset();
     }, error => {
-      console.log("Error!" + JSON.stringify(error));
+      this.showError(JSON.stringify(error));
     })
   }
-
 
   converterDataParaFormatoBackend(data: string): string {
     // Supondo que a data está no formato "dd/MM/yyyy"
@@ -78,6 +79,14 @@ export class RetroativoComponent implements OnInit {
 
     // Reformatar para "yyyy-MM-dd"
     return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+  }
+
+  showSuccess( msg: string, titulo: string) {
+    this.toastr.success(msg, titulo);
+  }
+
+  showError(error: string){
+    this.toastr.error(error, "Error!")
   }
 
 }

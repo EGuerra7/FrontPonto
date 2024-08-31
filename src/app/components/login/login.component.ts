@@ -7,6 +7,7 @@ import { LoginService } from '../service/login.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,13 @@ export class LoginComponent {
 
   loginData: LoginReponse = { email: '', senha: '' };
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private toastr: ToastrService) { }
 
   login() {
-    console.log('Botão de login clicado');
     this.loginService.login(this.loginData).subscribe({
       next: (usuario) => {
+        let msg = "Bem-vindo(a) " + usuario.nome;
+          this.showSuccess(msg, "Login efetuado");
         this.loginService.salvarUsuario(usuario);
         if (usuario.permissao === 'Administrador') {
           this.router.navigate(['/home']);
@@ -33,10 +35,17 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        console.error('Erro no login', err);
-        alert('Login ou senha inválidos');
+        this.showError();
       },
     });
+  }
+
+  showSuccess( msg: string, titulo: string) {
+    this.toastr.success(msg, titulo);
+  }
+
+  showError(){
+    this.toastr.error("Login ou senha inválidos", "Error!")
   }
 }
 

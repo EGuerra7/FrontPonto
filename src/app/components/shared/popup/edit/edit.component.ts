@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UsuarioService } from '../../../service/usuario.service';
 import { Usuario } from '../../../model/usuario.model';
 import { MatIconModule } from '@angular/material/icon';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class EditComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private toastr: ToastrService
   ) { }
 
   onNoClick() {
@@ -41,11 +43,19 @@ export class EditComponent {
     const formData: Usuario = this.usuarioForm.value;
 
     this.usuarioService.editarUsuario(formData).subscribe(response => {
-      alert("Usuario editado com sucesso!");
       this.usuarioForm.reset();
       this.dialogRef.close();
+      this.showSuccess(formData.nome!, "Edição Finalizada!")
     }, error => {
-      alert("Error!" + JSON.stringify(error));
+      this.showError(JSON.stringify(error));
     })
+  }
+
+  showSuccess( msg: string, titulo: string) {
+    this.toastr.success(msg, titulo);
+  }
+
+  showError(error: string){
+    this.toastr.error(error, "Error!")
   }
 }

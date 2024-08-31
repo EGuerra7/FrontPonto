@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -30,16 +31,24 @@ export class CadastroComponent {
     permissao: new FormControl(null)
   })
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private toastr: ToastrService) { }
 
   cadastrar() {
     const formData: Usuario = this.usuarioForm.value;
 
     this.usuarioService.registrarUsuario(formData).subscribe(response => {
-      alert("Usuario cadastrado com sucesso!");
+      this.showSuccess(formData.nome!, "Usuário cadastrado!")
       this.usuarioForm.reset();
     }, error => {
-      alert("Error!" + JSON.stringify(error));
+      this.showError()
     })
+  }
+
+  showSuccess( msg: string, titulo: string) {
+    this.toastr.success(msg, titulo);
+  }
+
+  showError(){
+    this.toastr.error("Erro no cadastro", "Error!")
   }
 }
