@@ -3,11 +3,11 @@
 <app-bluebox>
   <div class="bluebox-container-itens">
     <h1>Login</h1>
-    <form class="bluebox-formulario">
-      <input type="email" [(ngModel)]="loginData.email" placeholder="email">
-      <input type="password" [(ngModel)]="loginData.senha" placeholder="senha">
+    <form class="bluebox-formulario" (ngSubmit)="login()">
+      <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="email">
+      <input type="password" [(ngModel)]="loginData.senha" name="senha" placeholder="senha">
 
-      <button (click)="login()" class="btn">Login</button>
+      <button type="submit" class="btn">Login</button>
     </form>
   </div>
 </app-bluebox>

@@ -1,6 +1,6 @@
 <main>
   <header>
-    <p>Usuario</p>
+    <p *ngIf="usuario">{{ usuario.nome }}, {{ usuario.cargo }}</p>
     <button class="btn-cadastro" [routerLink]="['/login']">Login</button>
   </header>
   <div class="Logo-principal">

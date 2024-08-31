@@ -5,6 +5,9 @@ import { LoginComponent } from './components/login/login.component';
 import { FuncionariosComponent } from './components/funcionarios/funcionarios.component';
 import { AdmAuthService } from './components/service/security/adm-auth.service';
 import { AuthLoginService } from './components/service/security/auth-login.service';
+import { IndividualComponent } from './components/funcionarios/individual/individual.component';
+import { PontosComponent } from './components/pontos/pontos.component';
+import { RetroativoComponent } from './components/retroativo/retroativo.component';
 
 export const routes: Routes = [
   {
@@ -15,7 +18,7 @@ export const routes: Routes = [
   {
     path: 'cadastro',
     component: CadastroComponent,
-    canActivate: [AuthLoginService]
+    canActivate: [AdmAuthService]
   },
   {
     path: 'home',
@@ -29,11 +32,22 @@ export const routes: Routes = [
   {
     path: 'relatorio',
     component: FuncionariosComponent,
-    canActivate: [AuthLoginService]
+    canActivate: [AdmAuthService],
+    pathMatch: 'full'
   },
   {
     path: 'pontos',
-    component: LoginComponent,
+    component: PontosComponent,
+    canActivate: [AdmAuthService]
+  },
+  {
+    path: "relatorioIndividual",
+    component: IndividualComponent,
     canActivate: [AuthLoginService]
+  },
+  {
+    path: "retroativo",
+    component: RetroativoComponent,
+    canActivate: [AdmAuthService]
   }
 ];

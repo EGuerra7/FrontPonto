@@ -1,0 +1,8 @@
+<app-header [layout]="'center'" class="cabecalho">
+  <button *ngIf="userLogin?.permissao === 'Administrador'" [routerLink]="['/relatorio']" class="voltar"><mat-icon>west</mat-icon></button>
+</app-header>
+<main>
+  <h1>{{ userData?.nome }}</h1>
+  <h2>Cargo: {{ userData?.cargo }}</h2>
+  <p>ID: {{ userData?.id }}</p>
+</main>

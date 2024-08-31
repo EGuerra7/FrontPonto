@@ -29,8 +29,11 @@ export class LoginService {
   }
 
   obterUsuario(): Usuario | null {
-    const usuario = localStorage.getItem('usuario');
-    return usuario ? JSON.parse(usuario) : null;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const usuarioJson = localStorage.getItem('usuario');
+      return usuarioJson ? JSON.parse(usuarioJson) : null;
+    }
+    return null;
   }
 
   isLoggedIn(): boolean {

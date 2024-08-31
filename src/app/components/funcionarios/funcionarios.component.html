@@ -19,7 +19,7 @@
     <tbody>
       <tr *ngFor="let usuario of listaDeUsuario">
         <td>{{ usuario.id }}</td>
-        <td>{{ usuario.nome }}</td>
+        <td><button (click)="relatorioIndividual(usuario)">{{ usuario.nome }}</button></td>
         <td>{{ usuario.cargo }}</td>
         <td>{{ usuario.cargaHoraria }}</td>
         <td>{{ usuario.permissao }}</td>

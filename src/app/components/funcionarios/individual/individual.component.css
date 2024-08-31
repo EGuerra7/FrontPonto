@@ -1,0 +1,33 @@
+.voltar{
+  position: absolute;
+  left: 5%;
+  top: 2.5%;
+  background-color: transparent;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover{
+    color: gray;
+  }
+}
+
+main{
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte);
+}
+
+h1{
+  font-size: 24px;
+  font-weight: 500;
+}
+
+h2, p{
+  font-size: 20;
+  font-weight: 400;
+}

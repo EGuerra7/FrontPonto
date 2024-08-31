@@ -28,6 +28,10 @@ export class UsuarioService {
     return this.http.put<Usuario>(this.API, usuario);
   }
 
+  public BuscaUm(usuario: Usuario): Observable<Usuario>{
+    return this.http.get<Usuario>(this.API + "/" + usuario.id);
+  }
+
   public DeletarUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.delete<Usuario>(this.API + "/" + usuario.id);
   }

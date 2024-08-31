@@ -10,7 +10,7 @@ export class AdmAuthService {
   constructor(private authService: LoginService, private router: Router) { }
 
   canActivate(): boolean {
-    if (this.authService.isLoggedIn() && this.authService.getPermissao() === 'ADMIN') {
+    if (this.authService.isLoggedIn() && this.authService.getPermissao() === 'Administrador') {
       return true;
     }
     this.router.navigate(['/login']);

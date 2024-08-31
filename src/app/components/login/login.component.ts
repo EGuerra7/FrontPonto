@@ -21,6 +21,7 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private router: Router) { }
 
   login() {
+    console.log('Botão de login clicado');
     this.loginService.login(this.loginData).subscribe({
       next: (usuario) => {
         this.loginService.salvarUsuario(usuario);
