@@ -1,0 +1,69 @@
+.bluebox-container-itens, .bluebox-formulario{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1{
+  font-size: 26px;
+}
+
+.bluebox-container-itens{
+  gap: 35px;
+  font-family: var(--fonte);
+}
+
+.bluebox-formulario{
+  gap: 31px;
+}
+
+
+
+.bluebox-formulario input, mat-select{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  width: 330px;
+  height: 42px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: var(--cor-secundaria);
+
+  &::placeholder{
+    color: black;
+    font-family: var(--fonte);
+    font-size: 14px;
+  }
+}
+
+::ng-deep .mat-mdc-select-placeholder{
+  color: black !important;
+  font-family: var(--fonte) !important;
+  font-size: 14px;
+  text-align: center;
+}
+::ng-deep .mat-mdc-select-trigger{
+  display: flex !important;
+  width: 90% !important;
+}
+::ng-deep div.mat-mdc-select-panel{
+  width: 90% !important;
+}
+
+
+.btn{
+  background-color: var(--cor-secundaria);
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 16px;
+  color: var(--cor-principal);
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover{
+    box-shadow: 0 0 10px var(--cor-secundaria);
+  }
+}

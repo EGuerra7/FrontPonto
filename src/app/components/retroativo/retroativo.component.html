@@ -1,1 +1,19 @@
-<p>retroativo works!</p>
+<app-header [showNav]="true" [layout]="'space-between'"></app-header>
+<app-bluebox>
+  <div class="bluebox-container-itens">
+    <h1>Retroativo</h1>
+    <form class="bluebox-formulario" [formGroup]="pontoForm">
+      <mat-select formControlName="usuarioId" placeholder="Funcionário">
+        @for (usuario of listaDeUsuarios; track usuario) {
+          <mat-option [value]="usuario.id">{{usuario.nome}}</mat-option>
+        }
+      </mat-select>
+      <input type="text" formControlName="data" placeholder="Data">
+      <input type="text" formControlName="horaInicial" placeholder="Hora Inicial">
+      <input type="text" formControlName="horaFinal" placeholder="Hora Final">
+      <input type="text" formControlName="descricao" placeholder="Descricão">
+      <button class="btn" type="submit" (click)="pontoRetroativo()">Enviar</button>
+    </form>
+  </div>
+</app-bluebox>
+<app-footer></app-footer>

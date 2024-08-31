@@ -6,11 +6,12 @@ import { LoginReponse } from '../model/login.model';
 import { LoginService } from '../service/login.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from "../shared/footer/footer.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HeaderComponent, BlueboxComponent, CommonModule, FormsModule],
+  imports: [HeaderComponent, BlueboxComponent, CommonModule, FormsModule, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -28,7 +29,7 @@ export class LoginComponent {
         if (usuario.permissao === 'Administrador') {
           this.router.navigate(['/home']);
         } else {
-          alert("Calma lá amigão!");
+          this.router.navigate(['/relatorioIndividual'], { queryParams: usuario });
         }
       },
       error: (err) => {

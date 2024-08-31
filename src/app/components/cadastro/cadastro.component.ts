@@ -7,13 +7,14 @@ import { Usuario } from '../model/usuario.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from "../shared/footer/footer.component";
 
 
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [HeaderComponent, BlueboxComponent, CommonModule, FormsModule, ReactiveFormsModule, MatIconModule, RouterModule],
+  imports: [HeaderComponent, BlueboxComponent, CommonModule, FormsModule, ReactiveFormsModule, MatIconModule, RouterModule, FooterComponent],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.css'
 })

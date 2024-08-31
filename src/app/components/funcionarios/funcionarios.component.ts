@@ -8,13 +8,14 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { EditComponent } from '../shared/popup/edit/edit.component';
+import { FooterComponent } from "../shared/footer/footer.component";
 
 
 
 @Component({
   selector: 'app-funcionarios',
   standalone: true,
-  imports: [HeaderComponent, RouterModule, FormsModule, ReactiveFormsModule, CommonModule, MatIconModule],
+  imports: [HeaderComponent, RouterModule, FormsModule, ReactiveFormsModule, CommonModule, MatIconModule, FooterComponent],
   templateUrl: './funcionarios.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './funcionarios.component.css'

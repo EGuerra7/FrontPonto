@@ -1,0 +1,40 @@
+main{
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte);
+}
+
+h1{
+  font-size: 40px;
+}
+
+table{
+  width: 70%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  border-radius: 10px;
+}
+
+thead td {
+  padding: 12px;
+}
+
+tbody tr {
+  border-bottom: 1px solid gray;
+}
+
+tbody td {
+  padding: 12px;
+  background-color: rgb(212, 210, 210);
+}

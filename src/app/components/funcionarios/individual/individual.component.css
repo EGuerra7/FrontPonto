@@ -1,3 +1,8 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
 .voltar{
   position: absolute;
   left: 5%;
@@ -16,18 +21,69 @@
 main{
   margin-top: 3em;
   display: flex;
+  gap: 3em;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: var(--fonte);
 }
 
+.Infos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 h1{
   font-size: 24px;
   font-weight: 500;
+  margin: 0;
 }
 
 h2, p{
   font-size: 20;
   font-weight: 400;
+  margin: 0;
+}
+
+.tabelas{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3em;
+}
+
+.titulo-tabelas{
+  font-size: 24px;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+
+thead {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  border-radius: 10px;
+}
+
+thead td {
+  padding: 12px;
+}
+
+tbody tr {
+  border-bottom: 1px solid gray;
+}
+
+tbody td {
+  padding: 12px;
+  background-color: rgb(212, 210, 210);
 }

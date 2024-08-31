@@ -5,8 +5,10 @@ export class Ponto{
   id?: number;
   horaInicial?: Time;
   horaFinal?: Time;
-  data?: Date;
+  data?: string;
   usuarioId?: string;
+  usuario?: string;
   horasFeitas?: number;
+  horasFormatadas?: string;
   descricao?: string;
 }

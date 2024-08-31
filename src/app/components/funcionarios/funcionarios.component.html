@@ -19,7 +19,7 @@
     <tbody>
       <tr *ngFor="let usuario of listaDeUsuario">
         <td>{{ usuario.id }}</td>
-        <td><button (click)="relatorioIndividual(usuario)">{{ usuario.nome }}</button></td>
+        <td><button class="btn-user" (click)="relatorioIndividual(usuario)">{{ usuario.nome }}</button></td>
         <td>{{ usuario.cargo }}</td>
         <td>{{ usuario.cargaHoraria }}</td>
         <td>{{ usuario.permissao }}</td>
@@ -28,5 +28,5 @@
       </tr>
     </tbody>
   </table>
-
 </main>
+<app-footer></app-footer>

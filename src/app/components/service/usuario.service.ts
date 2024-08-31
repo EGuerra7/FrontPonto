@@ -32,6 +32,10 @@ export class UsuarioService {
     return this.http.get<Usuario>(this.API + "/" + usuario.id);
   }
 
+  public BuscaUmPorId(usuarioId: string): Observable<Usuario>{
+    return this.http.get<Usuario>(this.API + "/" + usuarioId);
+  }
+
   public DeletarUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.delete<Usuario>(this.API + "/" + usuario.id);
   }

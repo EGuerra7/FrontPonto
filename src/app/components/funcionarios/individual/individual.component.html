@@ -2,7 +2,61 @@
   <button *ngIf="userLogin?.permissao === 'Administrador'" [routerLink]="['/relatorio']" class="voltar"><mat-icon>west</mat-icon></button>
 </app-header>
 <main>
-  <h1>{{ userData?.nome }}</h1>
-  <h2>Cargo: {{ userData?.cargo }}</h2>
-  <p>ID: {{ userData?.id }}</p>
+  <section class="Infos">
+    <h1>{{ userData?.nome }}</h1>
+    <h2>{{ userData?.cargo }}</h2>
+    <p>ID: {{ userData?.id }}</p>
+  </section>
+
+  <section class="tabelas">
+
+    <div class="tabela-mensal">
+
+      <h2 class="titulo-tabelas">Mensal</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <td>Mês</td>
+            <td>Horas Mensais</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mes of listaMensalDePontos | keyvalue">
+            <td>{{ mes.key| date:'MM/yyyy' }}</td>
+            <td>{{ mes.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="tabela-pontos">
+
+      <h2 class="titulo-tabelas">Diário</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <td>Data</td>
+            <td>Hora Inicial</td>
+            <td>Hora Final</td>
+            <td>Horas Feitas</td>
+            <td>Descrição</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ponto of listaDePontos">
+            <td>{{ ponto.data | date:'dd/MM/yyyy' }}</td>
+            <td>{{ ponto.horaInicial }}</td>
+            <td>{{ ponto.horaFinal }}</td>
+            <td>{{ ponto.horasFormatadas }}</td>
+            <td>{{ ponto.descricao }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
 </main>
+<app-footer></app-footer>
