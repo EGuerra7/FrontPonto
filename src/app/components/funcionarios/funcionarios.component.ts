@@ -33,13 +33,13 @@ export class FuncionariosComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.ngOnInit();
-   }
+  }
 
   ngOnInit() {
     this.buscarUsuarios()
   }
 
-  relatorioIndividual(usuario: Usuario){
+  relatorioIndividual(usuario: Usuario) {
     const userData = {
       id: usuario.id,
       nome: usuario.nome,
@@ -100,13 +100,15 @@ export class FuncionariosComponent implements OnInit {
     })
   }
 
-  showSuccess( msg: string, titulo: string) {
+  showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(){
+  showError() {
     this.toastr.error("Ocorreu algum erro ao deletar o usuário.", "Error!");
   }
+
+
 
 
 }
