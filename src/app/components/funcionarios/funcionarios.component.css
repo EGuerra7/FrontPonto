@@ -18,8 +18,8 @@
 
 .funcionario-titulo button{
   position: absolute;
-  top: 8em;
-  right: 5em;
+  top: 10%;
+  right: 5%;
 
   background-color: green;
   color: var(--cor-secundaria);

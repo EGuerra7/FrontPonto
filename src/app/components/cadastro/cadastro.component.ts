@@ -2,7 +2,7 @@ import { UsuarioService } from './../service/usuario.service';
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../shared/header/header.component';
 import { BlueboxComponent } from '../shared/bluebox/bluebox.component';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Usuario } from '../model/usuario.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,10 +22,10 @@ import { ToastrService } from 'ngx-toastr';
 export class CadastroComponent {
 
   usuarioForm: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl(''),
-    cargaHoraria: new FormControl(null),
-    cargo: new FormControl(''),
+    id: new FormControl('', Validators.required),
+    nome: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    cargaHoraria: new FormControl(null, [Validators.required]),
+    cargo: new FormControl('', Validators.required),
     email: new FormControl(''),
     senha: new FormControl(''),
     permissao: new FormControl(null)
@@ -34,21 +34,25 @@ export class CadastroComponent {
   constructor(private usuarioService: UsuarioService, private toastr: ToastrService) { }
 
   cadastrar() {
-    const formData: Usuario = this.usuarioForm.value;
+    if(this.usuarioForm.valid){
+      const formData: Usuario = this.usuarioForm.value;
 
-    this.usuarioService.registrarUsuario(formData).subscribe(response => {
-      this.showSuccess(formData.nome!, "Usuário cadastrado!")
-      this.usuarioForm.reset();
-    }, error => {
-      this.showError()
-    })
-  }
+      this.usuarioService.registrarUsuario(formData).subscribe(response => {
+        this.showSuccess(formData.nome!, "Usuário cadastrado!")
+        this.usuarioForm.reset();
+      }, error => {
+        this.showError("Erro no cadastro");
+      })
+    } else {
+      this.showError("Está faltando informações");
+    }
+}
 
   showSuccess( msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(){
-    this.toastr.error("Erro no cadastro", "Error!")
+  showError(msg: string){
+    this.toastr.error(msg, "Error!")
   }
 }

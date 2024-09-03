@@ -1,0 +1,18 @@
+<app-header [layout]="'center'">
+<main>
+  <app-bluebox>
+    <main class="container">
+      <div class="infos">
+        <h1>Erick Thiago Teixeira Muzzi Guerra</h1>
+        <form [formGroup]="pontoForm">
+          <input type="text" formControlName="usuarioId" placeholder="ID:">
+        </form>
+        <p>Instrutor de Informática</p>
+      </div>
+      <div class="botoes">
+        <button (click)="entrada()" class="btn-entrada">Entrada</button>
+        <button (click)="saida()" class="btn-saida">Saída</button>
+      </div>
+    </main>
+  </app-bluebox>
+</main>

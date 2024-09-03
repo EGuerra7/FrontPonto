@@ -36,13 +36,15 @@ export class PontosComponent implements OnInit{
         ...ponto,
         horasFormatadas: this.formatarHoras(ponto.horasFeitas!)}));
 
-      // Crie um array de observables para buscar todos os usuários
-      const userRequests = this.listaDePontos.map(ponto =>
-        this.usuarioService.BuscaUmPorId(ponto.usuarioId!).pipe(
-          // Atribua o nome do usuário ao ponto correspondente
-          map(usuario => ({ ...ponto, usuario: usuario.nome }))
-        )
-      );
+     // Crie um array de observables para buscar todos os usuários
+    const userRequests = this.listaDePontos.map(ponto =>
+      this.usuarioService.BuscaUmPorId(ponto.usuarioId!).pipe(
+        map(usuario => ({
+          ...ponto,
+          usuario: usuario ? usuario.nome : 'Usuário não encontrado'
+        }))
+      )
+    );
 
       // Combine todos os observables e atualize a lista de pontos com os nomes dos usuários
       forkJoin(userRequests).subscribe(pontosComUsuarios => {

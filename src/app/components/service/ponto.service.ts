@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ponto } from '../model/ponto.model';
-import { Observable } from 'rxjs';
+import { catchError, Observable, pipe, throwError } from 'rxjs';
 import { PontosMensais } from '../model/pontosMensais.model';
 
 @Injectable({
@@ -14,9 +14,14 @@ export class PontoService {
   constructor(private http: HttpClient) { }
 
   public registrar(ponto: Ponto): Observable<Ponto> {
-    return this.http.post<Ponto>(this.API, ponto);
+    return this.http.post<Ponto>(this.API, ponto).pipe(
+      catchError(error => {
+        // Captura o erro e retorna a mensagem
+        return throwError(() => new Error(error.error.message || 'Erro desconhecido'));
+      })
+    );
   }
-  public registrarHoraFinal(ponto: Ponto): Observable<Ponto> {
+  public registrarSaida(ponto: Ponto): Observable<Ponto> {
     return this.http.put<Ponto>(this.API, ponto);
   }
 

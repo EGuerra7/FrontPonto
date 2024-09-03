@@ -65,7 +65,7 @@ table{
   margin: 25px 0;
   font-size: 15px;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid black;
 }
 
 
@@ -86,4 +86,15 @@ tbody tr {
 tbody td {
   padding: 12px;
   background-color: rgb(212, 210, 210);
+}
+
+@media (width <= 620px){
+
+  table{
+    font-size: 12px;
+  }
+
+  tbody td, thead td{
+    padding: 5px;
+  }
 }

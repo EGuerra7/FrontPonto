@@ -1,7 +1,10 @@
 <main>
   <header>
-    <p *ngIf="usuario">{{ usuario.nome }}, {{ usuario.cargo }}</p>
-    <button class="btn-cadastro" [routerLink]="['/login']">Login</button>
+    <div class="usuario">
+      <p *ngIf="usuario">{{ usuario.nomeFormatado }}</p>
+      <p>{{ usuario.cargo }}</p>
+    </div>
+    <button class="btn-logout" (click)="logout()">Logout</button>
   </header>
   <div class="Logo-principal">
     <img src="/assets/Logo Fund Branca 1.svg">

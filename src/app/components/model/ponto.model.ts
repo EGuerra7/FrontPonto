@@ -3,8 +3,8 @@ import { Time } from "@angular/common";
 
 export class Ponto{
   id?: number;
-  horaInicial?: Time;
-  horaFinal?: Time;
+  horaInicial?: Time | string;
+  horaFinal?: Time | string;
   data?: string;
   usuarioId?: string;
   usuario?: string;

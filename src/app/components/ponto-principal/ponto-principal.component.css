@@ -1,0 +1,65 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 5em;
+  font-family: var(--fonte);
+  padding: 3em;
+}
+.infos{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.infos h1{
+  margin: 0;
+  font-size: 30px;
+}
+
+.infos input{
+  background-color: transparent;
+  border: 0;
+  color: white;
+  font-size: 24px;
+  &::placeholder{
+    color: white;
+  }
+}
+
+.infos p{
+  font-size: 24px;
+}
+.botoes{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.botoes button{
+  border: 0;
+  padding: 0.5em 2em;
+  font-size: 26px;
+  font-family: var(--fonte);
+  cursor: pointer;
+  transition: .2s;
+  color: var(--cor-secundaria);
+  border-radius: 15px;
+
+  &:hover{
+    transform: scale(1.01);
+  }
+}
+
+.botoes .btn-entrada{
+  background-color: rgb(41, 173, 15);
+}
+
+.botoes .btn-saida{
+  background-color: red;
+}

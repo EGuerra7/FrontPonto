@@ -8,6 +8,7 @@ import { AuthLoginService } from './components/service/security/auth-login.servi
 import { IndividualComponent } from './components/funcionarios/individual/individual.component';
 import { PontosComponent } from './components/pontos/pontos.component';
 import { RetroativoComponent } from './components/retroativo/retroativo.component';
+import { PontoPrincipalComponent } from './components/ponto-principal/ponto-principal.component';
 
 export const routes: Routes = [
   {
@@ -49,5 +50,9 @@ export const routes: Routes = [
     path: "retroativo",
     component: RetroativoComponent,
     canActivate: [AdmAuthService]
+  },
+  {
+    path: "pontoEletronico",
+    component: PontoPrincipalComponent
   }
 ];
