@@ -26,6 +26,7 @@ main{
   align-items: center;
   justify-content: center;
   font-family: var(--fonte);
+  padding-bottom: 3em;
 }
 
 .Infos{
@@ -86,6 +87,34 @@ tbody tr {
 tbody td {
   padding: 12px;
   background-color: rgb(212, 210, 210);
+}
+
+.tabela-pontos-divTitulo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tabela-pontos-divTitulo select{
+  padding: 0.5em 1.5em 0.5em 0.2em;
+  font-family: var(--fonte);
+  color: black;
+  border-radius: 5px;
+}
+
+.tabela-pontos-divTitulo select:focus{
+  border: 1px solid var(--cor-principal);
+}
+
+ .tabela-pontos-divTitulo option {
+  padding: 8px 12px;
+}
+
+.tabela-pontos-divTitulo label {
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 @media (width <= 620px){

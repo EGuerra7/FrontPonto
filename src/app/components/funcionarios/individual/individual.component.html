@@ -32,8 +32,15 @@
     </div>
 
     <div class="tabela-pontos">
-
-      <h2 class="titulo-tabelas">Diário</h2>
+      <div class="tabela-pontos-divTitulo">
+        <h2 class="titulo-tabelas">Diário</h2>
+        <div>
+          <label>Mês/Ano</label>
+          <select  [(ngModel)]="mesSelecionado"  (change)="onMesChange()">
+            <option *ngFor="let mesAno of mesesDisponiveis" [value]="mesAno">{{ mesAno }}</option>
+          </select>
+        </div>
+      </div>
 
       <table>
         <thead>
@@ -46,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let ponto of listaDePontos">
+          <tr *ngFor="let ponto of pontosFiltrados">
             <td>{{ ponto.data | date:'dd/MM/yyyy' }}</td>
             <td>{{ ponto.horaInicial }}</td>
             <td>{{ ponto.horaFinal }}</td>

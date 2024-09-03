@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5em;
   margin-top: 3em;
   font-family: var(--fonte);
 
@@ -13,14 +12,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: space-between;
+  width: 80%;
 }
 
 .funcionario-titulo input{
   background-color:transparent;
   border: 2px solid var(--cor-principal);
-  width: 200px;
+  width: 300px;
   padding: 5px;
   border-radius: 8px;
   font-family: var(--fonte);

@@ -10,11 +10,12 @@ import { PontoService } from '../../service/ponto.service';
 import { Ponto } from '../../model/ponto.model';
 import { PontosMensais } from '../../model/pontosMensais.model';
 import { FooterComponent } from "../../shared/footer/footer.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-individual',
   standalone: true,
-  imports: [HeaderComponent, MatIconModule, RouterModule, CommonModule, FooterComponent],
+  imports: [HeaderComponent, MatIconModule, RouterModule, CommonModule, FooterComponent, FormsModule],
   templateUrl: './individual.component.html',
   styleUrl: './individual.component.css'
 })
@@ -22,11 +23,15 @@ export class IndividualComponent implements OnInit {
   userData?: Usuario;
   userLogin: any;
   listaDePontos: Ponto[] = [];
+  mesesDisponiveis: string[] = [];
+  pontosFiltrados: Ponto[] = [];
+  mesSelecionado: string = "Todos";
+  pontosPorMes: { [mesAno: string]: Ponto[] } = {};
   listaMensalDePontos: PontosMensais = {};
 
-  constructor(private route: ActivatedRoute, private loginService: LoginService, private pontoService: PontoService, private usuarioService: UsuarioService ,private cdr: ChangeDetectorRef) {}
+  constructor(private route: ActivatedRoute, private loginService: LoginService, private pontoService: PontoService, private usuarioService: UsuarioService, private cdr: ChangeDetectorRef) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.userData = params;
     });
@@ -37,18 +42,42 @@ export class IndividualComponent implements OnInit {
 
   buscarPontos() {
     this.pontoService.buscarPontosIndividuais(this.userData?.id!).subscribe((response: Ponto[]) => {
-      this.listaDePontos = response;
-      this.cdr.detectChanges();
-
       this.listaDePontos = response.map(ponto => ({
         ...ponto,
-        horasFormatadas: this.formatarHoras(ponto.horasFeitas!)}));
+        horasFormatadas: this.formatarHoras(ponto.horasFeitas!)
+      }));
+
+      this.pontosPorMes = this.agruparPontosPorMes(this.listaDePontos);
+      this.mesesDisponiveis = ["Todos", ...Object.keys(this.pontosPorMes)];
+
+      // Exibindo todos os pontos inicialmente
+      this.onMesChange();
+
     }, (error) => {
       console.log('Error ao buscar os pontos', error);
     });
   }
 
-  buscarPorMes(){
+  agruparPontosPorMes(pontos: Ponto[]): { [mesAno: string]: Ponto[] } {
+    return pontos.reduce((acc, ponto) => {
+      const mesAno = this.formatarMesAno(ponto.data!);
+      if (!acc[mesAno]) {
+        acc[mesAno] = [];
+      }
+      acc[mesAno].push(ponto);
+      return acc;
+    }, {} as { [mesAno: string]: Ponto[] });
+  }
+
+  onMesChange() {
+    if (this.mesSelecionado === 'Todos') {
+      this.pontosFiltrados = this.listaDePontos;
+    } else {
+      this.pontosFiltrados = this.pontosPorMes[this.mesSelecionado] || [];
+    }
+  }
+
+  buscarPorMes() {
     this.pontoService.buscarMensal(this.userData?.id!).subscribe((response: PontosMensais) => {
       this.listaMensalDePontos = {}; // Inicializamos o objeto
 
@@ -64,6 +93,13 @@ export class IndividualComponent implements OnInit {
     }, (error) => {
       console.log('Erro ao buscar os pontos mensais', error);
     });
+  }
+
+  formatarMesAno(data: string): string {
+    const date = new Date(data);
+    const mes = date.getMonth() + 1;
+    const ano = date.getFullYear();
+    return `${mes.toString().padStart(2, '0')}/${ano}`;
   }
 
 
