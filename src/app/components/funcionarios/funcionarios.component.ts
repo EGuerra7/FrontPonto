@@ -24,6 +24,8 @@ import { ToastrService } from 'ngx-toastr';
 export class FuncionariosComponent implements OnInit {
 
   listaDeUsuario: Usuario[] = [];
+  searchTerm: string = '';
+  filteredUsuarios:Usuario[] = [];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -31,12 +33,10 @@ export class FuncionariosComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private toastr: ToastrService
-  ) {
-    this.ngOnInit();
-  }
+  ) {}
 
   ngOnInit() {
-    this.buscarUsuarios()
+    this.buscarUsuarios();
   }
 
   relatorioIndividual(usuario: Usuario) {
@@ -84,6 +84,7 @@ export class FuncionariosComponent implements OnInit {
   buscarUsuarios() {
     this.usuarioService.buscarUsuarios().subscribe((response: Usuario[]) => {
       this.listaDeUsuario = response;
+      this.filteredUsuarios = [...this.listaDeUsuario];
       this.cdr.detectChanges();
     }, (error) => {
       console.log('Error ao buscar os usuários', error);
@@ -99,6 +100,18 @@ export class FuncionariosComponent implements OnInit {
       this.showError()
     })
   }
+
+  filterUsuarios() {
+    if (this.searchTerm) {
+      this.filteredUsuarios = this.listaDeUsuario.filter(usuario =>
+        usuario.nome!.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredUsuarios = [...this.listaDeUsuario];
+    }
+
+  }
+
 
   showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);

@@ -1,7 +1,7 @@
 <app-header [showNav]="true" [layout]="'space-between'"></app-header>
 <main class="funcionario-container">
   <div class="funcionario-titulo">
-    <input type="text" placeholder="Pesquise o funcionário">
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterUsuarios()"  placeholder="Pesquise o funcionário">
     <h1>Funcionários</h1>
     <button [routerLink]="['/cadastro']">Cadastrar</button>
   </div>
@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let usuario of listaDeUsuario">
+      <tr *ngFor="let usuario of filteredUsuarios">
         <td>{{ usuario.id }}</td>
         <td><button class="btn-user" (click)="relatorioIndividual(usuario)">{{ usuario.nome }}</button></td>
         <td>{{ usuario.cargo }}</td>
