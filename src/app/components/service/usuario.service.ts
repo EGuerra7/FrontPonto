@@ -28,15 +28,11 @@ export class UsuarioService {
     return this.http.put<Usuario>(this.API, usuario);
   }
 
-  public BuscaUm(usuario: Usuario): Observable<Usuario>{
-    return this.http.get<Usuario>(this.API + "/" + usuario.id);
-  }
-
-  public BuscaUmPorId(usuarioId: string): Observable<Usuario>{
+  public BuscaUmPorId(usuarioId: string): Observable<Usuario> {
     return this.http.get<Usuario>(this.API + "/" + usuarioId);
   }
 
-  public BuscaUmPorIdentificador(identificador: number): Observable<Usuario>{
+  public BuscaUmPorIdentificador(identificador: number): Observable<Usuario> {
     return this.http.get<Usuario>(this.API + "/identificador/" + identificador);
   }
 }

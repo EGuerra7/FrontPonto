@@ -16,12 +16,12 @@ import { FooterComponent } from "../shared/footer/footer.component";
   templateUrl: './pontos.component.html',
   styleUrl: './pontos.component.css'
 })
-export class PontosComponent implements OnInit{
+export class PontosComponent implements OnInit {
 
   listaDePontos: Ponto[] = [];
-  usuario: Usuario= new Usuario();
+  usuario: Usuario = new Usuario();
 
-  constructor(private pontoService: PontoService, private usuarioService: UsuarioService ,private cdr: ChangeDetectorRef){}
+  constructor(private pontoService: PontoService, private usuarioService: UsuarioService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.buscarPontos()
@@ -37,31 +37,18 @@ export class PontosComponent implements OnInit{
 
       this.listaDePontos = response.map(ponto => ({
         ...ponto,
-        horasFormatadas: this.formatarHoras(ponto.horasFeitas!)}));
+        horasFormatadas: this.formatarHoras(ponto.horasFeitas!)
+      }));
 
-    // Crie um array de observables para buscar todos os usuários
-    const userRequests = this.listaDePontos.map(ponto =>
-      this.usuarioService.BuscaUmPorId(ponto.usuarioId!).pipe(
-        switchMap(usuario => {
-          const identificador = usuario.identificador; // Guarde o identificador
-
-          // Agora, com o usuário encontrado, busca pelo identificador
-          return this.usuarioService.BuscaUmPorIdentificador(identificador!).pipe(
-            map(usuarioCompleto => ({
-              ...ponto,
-              usuario: usuarioCompleto ? usuarioCompleto.nome : 'Usuário não encontrado',
-              identificador: identificador // Mantenha o identificador no ponto
-            })),
-            catchError(error => {
-              return of({ ...ponto, usuario: 'Erro ao buscar usuário completo', identificador: identificador });
-            })
-          );
-        }),
-        catchError(error => {
-          return of({ ...ponto, usuario: 'Erro ao buscar usuário', identificador: this.usuario.identificador });
-        })
-      )
-    );
+      // Crie um array de observables para buscar todos os usuários
+      const userRequests = this.listaDePontos.map(ponto =>
+        this.usuarioService.BuscaUmPorIdentificador(ponto.usuarioIdentificador!).pipe(
+          map(usuario => ({
+            ...ponto,
+            usuario: usuario ? usuario.nome : 'Usuário não encontrado'
+          }))
+        )
+      );
 
       // Combine todos os observables e atualize a lista de pontos com os nomes dos usuários
       forkJoin(userRequests).subscribe(pontosComUsuarios => {
@@ -72,12 +59,12 @@ export class PontosComponent implements OnInit{
     }, (error) => {
       console.log('Error ao buscar os pontos', error);
     });
-}
+  }
 
-formatarHoras(minutos: number): string {
-  const horas = Math.floor(minutos / 60);
-  const minutosRestantes = minutos % 60;
-  return `${horas}h ${minutosRestantes}m`;
-}
+  formatarHoras(minutos: number): string {
+    const horas = Math.floor(minutos / 60);
+    const minutosRestantes = minutos % 60;
+    return `${horas}h ${minutosRestantes}m`;
+  }
 
 }

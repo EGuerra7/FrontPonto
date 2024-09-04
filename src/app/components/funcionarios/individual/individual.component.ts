@@ -10,7 +10,7 @@ import { PontoService } from '../../service/ponto.service';
 import { Ponto } from '../../model/ponto.model';
 import { PontosMensais } from '../../model/pontosMensais.model';
 import { FooterComponent } from "../../shared/footer/footer.component";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-individual',
@@ -41,7 +41,7 @@ export class IndividualComponent implements OnInit {
   }
 
   buscarPontos() {
-    this.pontoService.buscarPontosIndividuais(this.userData?.id!).subscribe((response: Ponto[]) => {
+    this.pontoService.buscarPontosIndividuais(this.userData?.identificador!).subscribe((response: Ponto[]) => {
       this.listaDePontos = response.map(ponto => ({
         ...ponto,
         horasFormatadas: this.formatarHoras(ponto.horasFeitas!)
@@ -78,7 +78,7 @@ export class IndividualComponent implements OnInit {
   }
 
   buscarPorMes() {
-    this.pontoService.buscarMensal(this.userData?.id!).subscribe((response: PontosMensais) => {
+    this.pontoService.buscarMensal(this.userData?.identificador!).subscribe((response: PontosMensais) => {
       this.listaMensalDePontos = {}; // Inicializamos o objeto
 
       // Iteramos sobre as chaves do objeto response

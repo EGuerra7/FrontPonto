@@ -18,7 +18,7 @@ import { Usuario } from '../model/usuario.model';
   templateUrl: './ponto-principal.component.html',
   styleUrl: './ponto-principal.component.css'
 })
-export class PontoPrincipalComponent{
+export class PontoPrincipalComponent {
 
   usuario: Usuario = new Usuario();
 
@@ -32,28 +32,34 @@ export class PontoPrincipalComponent{
 
 
   constructor(
-    private pontoService:PontoService,
+    private pontoService: PontoService,
     private usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService
-  ){}
+  ) { }
 
 
 
 
-  buscarUsuarioPorId(){
+  buscarUsuarioPorId() {
     const pontoData: Ponto = this.pontoForm.value;
 
-      this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(response => {
+    this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(response => {
+      if (response.ativo == true) {
         this.usuario = response;
         this.cdr.detectChanges();
-      }, error => {
-        this.showError("ID não cadastrado!");
-      })
+      } else {
+        this.showError("ID desativado!");
+      }
+
+
+    }, error => {
+      this.showError("ID não cadastrado!");
+    })
   }
 
-  entrada(){
-    if(this.pontoForm.valid){
+  entrada() {
+    if (this.pontoForm.valid) {
       const pontoData: Ponto = this.pontoForm.value;
 
       const { dataFormatada, horaFormatada } = this.obterDataHoraAtual();
@@ -64,22 +70,22 @@ export class PontoPrincipalComponent{
       pontoEntrada.data = dataFormatada;
       pontoEntrada.horaInicial = horaFormatada;
       pontoEntrada.descricao = pontoData.descricao;
-      if( pontoEntrada.data || pontoEntrada.horaInicial || pontoEntrada.descricao){
+      if (pontoEntrada.data || pontoEntrada.horaInicial || pontoEntrada.descricao) {
         this.pontoService.registrar(pontoEntrada).subscribe(response => {
           this.showSuccess(horaFormatada, "Ponto aberto!")
         }, error => {
           this.showError("Você já tem um ponto em aberto!");
         });
-        } else{
-          this.showError("");
-        }
+      } else {
+        this.showError("");
+      }
     } else {
       this.showError("Não há um usuário para enviar!");
-  }
+    }
   }
 
-  saida(){
-    if(this.pontoForm.valid){
+  saida() {
+    if (this.pontoForm.valid) {
       const pontoData: Ponto = this.pontoForm.value;
 
       const { dataFormatada, horaFormatada } = this.obterDataHoraAtual();
@@ -88,18 +94,18 @@ export class PontoPrincipalComponent{
       pontoSaida.usuarioId = pontoData.usuarioId;
       pontoSaida.data = dataFormatada;
       pontoSaida.horaFinal = horaFormatada;
-      if( pontoSaida.data || pontoSaida.horaFinal || pontoSaida.descricao){
+      if (pontoSaida.data || pontoSaida.horaFinal || pontoSaida.descricao) {
         this.pontoService.registrarSaida(pontoSaida).subscribe(response => {
           this.showSuccess(horaFormatada, "Ponto fechado!")
-      }, error => {
-        this.showError("Você não tem um ponto em aberto!");
-      });
-      } else{
+        }, error => {
+          this.showError("Você não tem um ponto em aberto!");
+        });
+      } else {
         this.showError("");
       }
     }
     else {
-    this.showError("Não há um usuário para enviar!");
+      this.showError("Não há um usuário para enviar!");
     }
   }
 
@@ -122,11 +128,11 @@ export class PontoPrincipalComponent{
   }
 
 
-  showSuccess( msg: string, titulo: string) {
+  showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(error: string){
+  showError(error: string) {
     this.toastr.error(error, "Error!")
   }
 }

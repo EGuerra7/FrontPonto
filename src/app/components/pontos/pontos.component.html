@@ -4,7 +4,6 @@
   <table>
     <thead>
       <tr>
-        <td>id</td>
         <td>Nome Completo</td>
         <td>Data</td>
         <td>Hora Inicial</td>
@@ -15,7 +14,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let ponto of listaDePontos">
-        <td>{{ ponto.identificador }}</td>
         <td>{{ ponto.usuario }}</td>
         <td>{{ ponto.data | date:'dd/MM/yyyy' }}</td>
         <td>{{ ponto.horaInicial }}</td>

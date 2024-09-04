@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { HeaderComponent } from "../shared/header/header.component";
 import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
 import { Ponto } from '../model/ponto.model';
@@ -25,7 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RetroativoComponent implements OnInit {
   listaDeUsuarios: Usuario[] = [];
   pontoForm: FormGroup = new FormGroup({
-    identificador: new FormControl(),
+    usuarioIdentificador: new FormControl(null),
     usuarioId: new FormControl(""),
     data: new FormControl(""),
     horaInicial: new FormControl(""),
@@ -40,7 +40,7 @@ export class RetroativoComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private pontoService: PontoService,
     private toastr: ToastrService
-  ){}
+  ) { }
 
   ngOnInit() {
     this.buscarUsuarios();
@@ -56,26 +56,30 @@ export class RetroativoComponent implements OnInit {
   }
 
 
-  pontoRetroativo(){
-
+  pontoRetroativo() {
     const pontoData: Ponto = this.pontoForm.value;
-    this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(usuario => {
-      pontoData.identificador = usuario.identificador;
-    });
+    this.usuarioService.BuscaUmPorIdentificador(pontoData.usuarioIdentificador!).subscribe(usuario => {
+      pontoData.usuarioId = usuario.id;
 
-    const dataFormatada = this.converterDataParaFormatoBackend(pontoData.data!);
+      const dataFormatada = this.converterDataParaFormatoBackend(pontoData.data!);
 
-    const dadosParaEnviar = {
-      ...pontoData,
-      data: dataFormatada
-    }
+      const dadosParaEnviar = {
+        ...pontoData,
+        data: dataFormatada
+      };
 
-    this.pontoService.registrar(dadosParaEnviar).subscribe(response => {
-      this.showSuccess(pontoData.descricao!, "Ponto registrado!")
-      this.pontoForm.reset();
+      console.log(dadosParaEnviar);
+      this.pontoService.registrar(dadosParaEnviar).subscribe(response => {
+        this.showSuccess(pontoData.descricao!, "Ponto registrado!");
+        this.pontoForm.reset();
+      }, error => {
+        this.showError(JSON.stringify(error));
+      });
+
     }, error => {
-      this.showError(JSON.stringify(error));
-    })
+      this.showError('Erro ao buscar usuário');
+      console.error('Erro ao buscar usuário', error);
+    });
   }
 
   converterDataParaFormatoBackend(data: string): string {
@@ -89,11 +93,11 @@ export class RetroativoComponent implements OnInit {
     return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
   }
 
-  showSuccess( msg: string, titulo: string) {
+  showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(error: string){
+  showError(error: string) {
     this.toastr.error(error, "Error!")
   }
 

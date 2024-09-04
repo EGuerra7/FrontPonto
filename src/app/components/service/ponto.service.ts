@@ -29,11 +29,11 @@ export class PontoService {
     return this.http.get<Ponto[]>(this.API);
   }
 
-  public buscarPontosIndividuais(id: string): Observable<Ponto[]>{
+  public buscarPontosIndividuais(id: number): Observable<Ponto[]> {
     return this.http.get<Ponto[]>(this.API + "/" + id);
   }
 
-  public buscarMensal(id: string): Observable<PontosMensais>{
+  public buscarMensal(id: number): Observable<PontosMensais> {
     return this.http.get<PontosMensais>(this.API + "/mensal/" + id);
   }
 

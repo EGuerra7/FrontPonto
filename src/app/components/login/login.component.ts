@@ -26,7 +26,7 @@ export class LoginComponent {
     this.loginService.login(this.loginData).subscribe({
       next: (usuario) => {
         let msg = "Bem-vindo(a) " + usuario.nome;
-          this.showSuccess(msg, "Login efetuado");
+        this.showSuccess(msg, "Login efetuado");
         this.loginService.salvarUsuario(usuario);
         if (usuario.permissao === 'Administrador') {
           this.router.navigate(['/home']);
@@ -35,16 +35,17 @@ export class LoginComponent {
         }
       },
       error: (err) => {
+        console.log(JSON.stringify(err));
         this.showError();
       },
     });
   }
 
-  showSuccess( msg: string, titulo: string) {
+  showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(){
+  showError() {
     this.toastr.error("Login ou senha inválidos", "Error!")
   }
 }

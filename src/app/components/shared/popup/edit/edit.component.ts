@@ -52,11 +52,11 @@ export class EditComponent {
     })
   }
 
-  showSuccess( msg: string, titulo: string) {
+  showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(error: string){
+  showError(error: string) {
     this.toastr.error(error, "Error!")
   }
 }

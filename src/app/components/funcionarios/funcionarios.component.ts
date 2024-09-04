@@ -26,7 +26,7 @@ export class FuncionariosComponent implements OnInit {
 
   listaDeUsuario: Usuario[] = [];
   searchTerm: string = '';
-  filteredUsuarios:Usuario[] = [];
+  filteredUsuarios: Usuario[] = [];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -34,7 +34,7 @@ export class FuncionariosComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buscarUsuarios();
@@ -42,6 +42,7 @@ export class FuncionariosComponent implements OnInit {
 
   relatorioIndividual(usuario: Usuario) {
     const userData = {
+      identificador: usuario.identificador,
       id: usuario.id,
       nome: usuario.nome,
       cargo: usuario.cargo,
