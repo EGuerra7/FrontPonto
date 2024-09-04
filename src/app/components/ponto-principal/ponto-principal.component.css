@@ -33,27 +33,28 @@
   background-color: transparent;
   border: 0;
   color: white;
-  width: 35%;
+  width: 50%;
   font-size: 20px;
-
-  &::placeholder{
-    color: white;
-  }
+  font-weight: 300;
 }
 
 
 
 .infos label{
   font-size: 20px;
+  font-weight: 300;
 }
 
 .infos p{
   font-size: 20px;
+  font-weight: 300;
+  margin: 0;
 }
 .botoes{
   display: flex;
   align-items: center;
   justify-content: space-around;
+  gap: 50px;
 }
 
 .botoes button{

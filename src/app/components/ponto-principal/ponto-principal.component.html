@@ -4,11 +4,11 @@
     <main class="container">
       <div class="infos">
         <h1>{{ usuario.nome }}</h1>
+        <p>{{ usuario.cargo }}</p>
         <form [formGroup]="pontoForm">
           <label>ID:</label>
           <input type="text" (ngModelChange)="buscarUsuarioPorId()" formControlName="usuarioId">
         </form>
-        <p>{{ usuario.cargo }}</p>
       </div>
       <div class="botoes">
         <button (click)="entrada()" class="btn-entrada">Entrada</button>

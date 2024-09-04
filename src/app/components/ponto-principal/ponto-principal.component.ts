@@ -23,6 +23,7 @@ export class PontoPrincipalComponent {
   usuario: Usuario = new Usuario();
 
   pontoForm: FormGroup = new FormGroup({
+    usuarioIdentificador: new FormControl(""),
     usuarioId: new FormControl("", Validators.required),
     data: new FormControl(null),
     horaInicial: new FormControl(""),
@@ -39,22 +40,14 @@ export class PontoPrincipalComponent {
   ) { }
 
 
-
-
   buscarUsuarioPorId() {
     const pontoData: Ponto = this.pontoForm.value;
 
     this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(response => {
-      if (response.ativo == true) {
         this.usuario = response;
         this.cdr.detectChanges();
-      } else {
-        this.showError("ID desativado!");
-      }
-
-
     }, error => {
-      this.showError("ID não cadastrado!");
+      this.showError("ID não cadastrado ou inativo!");
     })
   }
 
@@ -66,6 +59,7 @@ export class PontoPrincipalComponent {
 
 
       const pontoEntrada: Ponto = new Ponto();
+      pontoEntrada.usuarioIdentificador = this.usuario.identificador;
       pontoEntrada.usuarioId = pontoData.usuarioId;
       pontoEntrada.data = dataFormatada;
       pontoEntrada.horaInicial = horaFormatada;
