@@ -25,12 +25,15 @@ import { ToastrService } from 'ngx-toastr';
 export class RetroativoComponent implements OnInit {
   listaDeUsuarios: Usuario[] = [];
   pontoForm: FormGroup = new FormGroup({
+    identificador: new FormControl(),
     usuarioId: new FormControl(""),
     data: new FormControl(""),
     horaInicial: new FormControl(""),
     horaFinal: new FormControl(""),
     descricao: new FormControl("")
   })
+
+
 
   constructor(
     private usuarioService: UsuarioService,
@@ -40,7 +43,7 @@ export class RetroativoComponent implements OnInit {
   ){}
 
   ngOnInit() {
-    this.buscarUsuarios()
+    this.buscarUsuarios();
   }
 
   buscarUsuarios() {
@@ -52,8 +55,13 @@ export class RetroativoComponent implements OnInit {
     })
   }
 
+
   pontoRetroativo(){
+
     const pontoData: Ponto = this.pontoForm.value;
+    this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(usuario => {
+      pontoData.identificador = usuario.identificador;
+    });
 
     const dataFormatada = this.converterDataParaFormatoBackend(pontoData.data!);
 

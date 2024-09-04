@@ -20,12 +20,14 @@ export class EditComponent {
   readonly dialogRef = inject(MatDialogRef<EditComponent>)
 
   usuarioForm: FormGroup = new FormGroup({
+    identificador: new FormControl(this.data.identificador),
     id: new FormControl(''),
     nome: new FormControl(''),
     cargaHoraria: new FormControl(null),
     cargo: new FormControl(''),
     email: new FormControl(''),
     senha: new FormControl(''),
+    ativo: new FormControl(null),
     permissao: new FormControl(null)
   })
 
@@ -43,7 +45,6 @@ export class EditComponent {
     const formData: Usuario = this.usuarioForm.value;
 
     this.usuarioService.editarUsuario(formData).subscribe(response => {
-      this.usuarioForm.reset();
       this.dialogRef.close();
       this.showSuccess(formData.nome!, "Edição Finalizada!")
     }, error => {

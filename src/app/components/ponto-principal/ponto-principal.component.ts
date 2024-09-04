@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
 import { HeaderComponent } from "../shared/header/header.component";
 import { PontoService } from '../service/ponto.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Ponto } from '../model/ponto.model';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'console';
+import { UsuarioService } from '../service/usuario.service';
+import { Usuario } from '../model/usuario.model';
 
 
 
@@ -17,25 +18,9 @@ import { error } from 'console';
   templateUrl: './ponto-principal.component.html',
   styleUrl: './ponto-principal.component.css'
 })
-export class PontoPrincipalComponent {
+export class PontoPrincipalComponent{
 
-  obterDataHoraAtual() {
-    const agora = new Date();
-
-    // Obtendo a data no formato 'yyyy-MM-dd'
-    const ano = agora.getFullYear();
-    const mes = (agora.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
-    const dia = agora.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
-    const dataFormatada = `${ano}-${mes}-${dia}`;
-
-    // Obtendo a hora no formato 'HH:mm:ss'
-    const horas = agora.getHours().toString().padStart(2, '0');
-    const minutos = agora.getMinutes().toString().padStart(2, '0');
-    const segundos = agora.getSeconds().toString().padStart(2, '0');
-    const horaFormatada = `${horas}:${minutos}:${segundos}`;
-
-    return { dataFormatada, horaFormatada };
-  }
+  usuario: Usuario = new Usuario();
 
   pontoForm: FormGroup = new FormGroup({
     usuarioId: new FormControl("", Validators.required),
@@ -48,8 +33,24 @@ export class PontoPrincipalComponent {
 
   constructor(
     private pontoService:PontoService,
+    private usuarioService: UsuarioService,
+    private cdr: ChangeDetectorRef,
     private toastr: ToastrService
   ){}
+
+
+
+
+  buscarUsuarioPorId(){
+    const pontoData: Ponto = this.pontoForm.value;
+
+      this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(response => {
+        this.usuario = response;
+        this.cdr.detectChanges();
+      }, error => {
+        this.showError("ID não cadastrado!");
+      })
+  }
 
   entrada(){
     if(this.pontoForm.valid){
@@ -100,6 +101,24 @@ export class PontoPrincipalComponent {
     else {
     this.showError("Não há um usuário para enviar!");
     }
+  }
+
+  obterDataHoraAtual() {
+    const agora = new Date();
+
+    // Obtendo a data no formato 'yyyy-MM-dd'
+    const ano = agora.getFullYear();
+    const mes = (agora.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    const dia = agora.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
+    // Obtendo a hora no formato 'HH:mm:ss'
+    const horas = agora.getHours().toString().padStart(2, '0');
+    const minutos = agora.getMinutes().toString().padStart(2, '0');
+    const segundos = agora.getSeconds().toString().padStart(2, '0');
+    const horaFormatada = `${horas}:${minutos}:${segundos}`;
+
+    return { dataFormatada, horaFormatada };
   }
 
 

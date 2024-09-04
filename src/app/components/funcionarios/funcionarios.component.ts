@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { Usuario } from './../model/usuario.model';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from "../shared/header/header.component";
@@ -58,12 +59,14 @@ export class FuncionariosComponent implements OnInit {
 
   openDialog(usuario: Usuario) {
     const userData = {
+      identificador: usuario.identificador,
       id: usuario.id,
       nome: usuario.nome,
       cargo: usuario.cargo,
       cargaHoraria: usuario.cargaHoraria,
       email: usuario.email,
       senha: usuario.senha,
+      ativo: usuario.ativo,
       permissao: usuario.permissao
     };
 
@@ -84,20 +87,17 @@ export class FuncionariosComponent implements OnInit {
   buscarUsuarios() {
     this.usuarioService.buscarUsuarios().subscribe((response: Usuario[]) => {
       this.listaDeUsuario = response;
+      this.listaDeUsuario = response.map(usuario => ({
+        ...usuario,
+        ativoFormatado: this.formatarAtivo({ ativo: usuario.ativo! })
+      })
+
+      )
+
       this.filteredUsuarios = [...this.listaDeUsuario];
       this.cdr.detectChanges();
     }, (error) => {
       console.log('Error ao buscar os usuários', error);
-    })
-  }
-
-  deletarUsuario(usuario: Usuario) {
-    this.usuarioService.DeletarUsuario(usuario).subscribe(response => {
-      this.ngOnInit();
-      let msg = "Usuário " + usuario.nome + " deletado com sucesso!";
-      this.showSuccess(msg, "Usuário deletado!")
-    }, (error) => {
-      this.showError()
     })
   }
 
@@ -109,8 +109,17 @@ export class FuncionariosComponent implements OnInit {
     } else {
       this.filteredUsuarios = [...this.listaDeUsuario];
     }
-
   }
+
+  formatarAtivo({ ativo }: { ativo: boolean }): "Trabalhando" | "Desativado" | undefined {
+    if (ativo === true) {
+      return "Trabalhando";
+    } else if (ativo === false) {
+      return "Desativado";
+    }
+    return undefined;
+  }
+
 
 
   showSuccess(msg: string, titulo: string) {

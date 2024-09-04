@@ -6,14 +6,19 @@
         <input type="text" readonly formControlName="id" placeholder="UID" [(ngModel)]="data.id">
         <input type="text" formControlName="nome" placeholder="Nome Completo" [(ngModel)]="data.nome">
         <input type="text" formControlName="cargo" placeholder="Função - Empresa" [(ngModel)]="data.cargo">
-      </div>
-      <div class="formulario_div">
         <input type="text" formControlName="cargaHoraria" placeholder="Carga Horária" [(ngModel)]="data.cargaHoraria">
+      </div>
+
+      <div class="formulario_div">
         <input type="email" formControlName="email" placeholder="Email" [(ngModel)]="data.email">
         <input type="password" formControlName="senha" placeholder="Senha" [(ngModel)]="data.senha">
         <select formControlName="permissao" [(ngModel)]="data.permissao">
           <option value="Administrador">Administrador</option>
           <option value="Funcionário">Funcionário</option>
+        </select>
+        <select formControlName="ativo" [(ngModel)]="data.ativo">
+          <option value="true">Trabalhando</option>
+          <option value="false">Desativado</option>
         </select>
       </div>
     </form>

@@ -19,21 +19,36 @@
 
 .infos h1{
   margin: 0;
-  font-size: 30px;
+  font-size: 35px;
+}
+
+.infos form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .infos input{
   background-color: transparent;
   border: 0;
   color: white;
-  font-size: 24px;
+  width: 35%;
+  font-size: 20px;
+
   &::placeholder{
     color: white;
   }
 }
 
+
+
+.infos label{
+  font-size: 20px;
+}
+
 .infos p{
-  font-size: 24px;
+  font-size: 20px;
 }
 .botoes{
   display: flex;

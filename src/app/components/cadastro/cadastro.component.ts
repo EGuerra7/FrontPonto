@@ -28,6 +28,7 @@ export class CadastroComponent {
     cargo: new FormControl('', Validators.required),
     email: new FormControl(''),
     senha: new FormControl(''),
+    ativo: new FormControl(true),
     permissao: new FormControl(null)
   })
 

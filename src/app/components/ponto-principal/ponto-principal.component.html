@@ -3,11 +3,12 @@
   <app-bluebox>
     <main class="container">
       <div class="infos">
-        <h1>Erick Thiago Teixeira Muzzi Guerra</h1>
+        <h1>{{ usuario.nome }}</h1>
         <form [formGroup]="pontoForm">
-          <input type="text" formControlName="usuarioId" placeholder="ID:">
+          <label>ID:</label>
+          <input type="text" (ngModelChange)="buscarUsuarioPorId()" formControlName="usuarioId">
         </form>
-        <p>Instrutor de Informática</p>
+        <p>{{ usuario.cargo }}</p>
       </div>
       <div class="botoes">
         <button (click)="entrada()" class="btn-entrada">Entrada</button>

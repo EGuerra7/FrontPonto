@@ -1,11 +1,13 @@
+import { Usuario } from './../model/usuario.model';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../shared/header/header.component';
 import { PontoService } from '../service/ponto.service';
 import { Ponto } from '../model/ponto.model';
 import { CommonModule, DatePipe } from '@angular/common';
 import { UsuarioService } from '../service/usuario.service';
-import { forkJoin, map } from 'rxjs';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { FooterComponent } from "../shared/footer/footer.component";
+
 
 @Component({
   selector: 'app-pontos',
@@ -17,6 +19,7 @@ import { FooterComponent } from "../shared/footer/footer.component";
 export class PontosComponent implements OnInit{
 
   listaDePontos: Ponto[] = [];
+  usuario: Usuario= new Usuario();
 
   constructor(private pontoService: PontoService, private usuarioService: UsuarioService ,private cdr: ChangeDetectorRef){}
 
@@ -36,13 +39,27 @@ export class PontosComponent implements OnInit{
         ...ponto,
         horasFormatadas: this.formatarHoras(ponto.horasFeitas!)}));
 
-     // Crie um array de observables para buscar todos os usuários
+    // Crie um array de observables para buscar todos os usuários
     const userRequests = this.listaDePontos.map(ponto =>
       this.usuarioService.BuscaUmPorId(ponto.usuarioId!).pipe(
-        map(usuario => ({
-          ...ponto,
-          usuario: usuario ? usuario.nome : 'Usuário não encontrado'
-        }))
+        switchMap(usuario => {
+          const identificador = usuario.identificador; // Guarde o identificador
+
+          // Agora, com o usuário encontrado, busca pelo identificador
+          return this.usuarioService.BuscaUmPorIdentificador(identificador!).pipe(
+            map(usuarioCompleto => ({
+              ...ponto,
+              usuario: usuarioCompleto ? usuarioCompleto.nome : 'Usuário não encontrado',
+              identificador: identificador // Mantenha o identificador no ponto
+            })),
+            catchError(error => {
+              return of({ ...ponto, usuario: 'Erro ao buscar usuário completo', identificador: identificador });
+            })
+          );
+        }),
+        catchError(error => {
+          return of({ ...ponto, usuario: 'Erro ao buscar usuário', identificador: this.usuario.identificador });
+        })
       )
     );
 

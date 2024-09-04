@@ -7,10 +7,10 @@
   <table>
     <thead>
       <tr>
-        <td>ID</td>
         <td>Nome Completo</td>
         <td>Cargo</td>
         <td>Carga Horária</td>
+        <td>Ativo</td>
         <td>Permissão</td>
         <td></td>
         <td></td>
@@ -18,13 +18,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let usuario of filteredUsuarios">
-        <td>{{ usuario.id }}</td>
         <td><button class="btn-user" (click)="relatorioIndividual(usuario)">{{ usuario.nome }}</button></td>
         <td>{{ usuario.cargo }}</td>
         <td>{{ usuario.cargaHoraria }}</td>
+        <td>{{ usuario.ativoFormatado }}</td>
         <td>{{ usuario.permissao }}</td>
         <td><button (click)="openDialog(usuario)"><mat-icon>edit</mat-icon></button></td>
-        <td><button (click)="deletarUsuario(usuario)" class="delete"><mat-icon>delete</mat-icon></button></td>
       </tr>
     </tbody>
   </table>
