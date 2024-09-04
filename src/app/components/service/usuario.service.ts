@@ -3,7 +3,7 @@ import { Usuario } from './../model/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { LoginReponse } from '../model/login.model';
+
 
 
 
@@ -28,11 +28,11 @@ export class UsuarioService {
     return this.http.put<Usuario>(this.API, usuario);
   }
 
-  public BuscaUmPorId(usuarioId: string): Observable<Usuario> {
-    return this.http.get<Usuario>(this.API + "/" + usuarioId);
+  public BuscaUmPorRfid(rfid: string): Observable<Usuario> {
+    return this.http.get<Usuario>(this.API + "/" + rfid);
   }
 
-  public BuscaUmPorIdentificador(identificador: number): Observable<Usuario> {
-    return this.http.get<Usuario>(this.API + "/identificador/" + identificador);
+  public BuscaUmPorId(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(this.API + "/identificador/" + id);
   }
 }

@@ -13,3 +13,14 @@
   color: var(--cor-secundaria);
 }
 
+@media (width <= 460px){
+  .bluebox-container{
+    padding: 37px 35px;
+  }
+}
+@media (width <= 340px){
+  .bluebox-container{
+    padding: 20px;
+  }
+}
+

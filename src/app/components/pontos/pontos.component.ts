@@ -42,7 +42,7 @@ export class PontosComponent implements OnInit {
 
       // Crie um array de observables para buscar todos os usuários
       const userRequests = this.listaDePontos.map(ponto =>
-        this.usuarioService.BuscaUmPorIdentificador(ponto.usuarioIdentificador!).pipe(
+        this.usuarioService.BuscaUmPorId(ponto.usuarioId!).pipe(
           map(usuario => ({
             ...ponto,
             usuario: usuario ? usuario.nome : 'Usuário não encontrado'

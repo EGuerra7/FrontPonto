@@ -1,8 +1,8 @@
 import { Time } from "@angular/common";
 
-export class Usuario{
-  identificador?: number;
-  id?: string;
+export class Usuario {
+  id?: number;
+  rfid?: string;
   nome?: string;
   cargaHoraria?: Time;
   cargo?: string;

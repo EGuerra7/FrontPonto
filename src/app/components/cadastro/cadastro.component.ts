@@ -22,7 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CadastroComponent {
 
   usuarioForm: FormGroup = new FormGroup({
-    id: new FormControl('', Validators.required),
+    rfid: new FormControl('', Validators.required),
     nome: new FormControl('', [Validators.required, Validators.minLength(8)]),
     cargaHoraria: new FormControl(null, [Validators.required]),
     cargo: new FormControl('', Validators.required),
@@ -35,7 +35,7 @@ export class CadastroComponent {
   constructor(private usuarioService: UsuarioService, private toastr: ToastrService) { }
 
   cadastrar() {
-    if(this.usuarioForm.valid){
+    if (this.usuarioForm.valid) {
       const formData: Usuario = this.usuarioForm.value;
 
       this.usuarioService.registrarUsuario(formData).subscribe(response => {
@@ -47,13 +47,13 @@ export class CadastroComponent {
     } else {
       this.showError("Está faltando informações");
     }
-}
+  }
 
-  showSuccess( msg: string, titulo: string) {
+  showSuccess(msg: string, titulo: string) {
     this.toastr.success(msg, titulo);
   }
 
-  showError(msg: string){
+  showError(msg: string) {
     this.toastr.error(msg, "Error!")
   }
 }

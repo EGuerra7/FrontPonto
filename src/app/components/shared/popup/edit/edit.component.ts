@@ -20,8 +20,8 @@ export class EditComponent {
   readonly dialogRef = inject(MatDialogRef<EditComponent>)
 
   usuarioForm: FormGroup = new FormGroup({
-    identificador: new FormControl(this.data.identificador),
-    id: new FormControl(''),
+    id: new FormControl(this.data.id),
+    rfid: new FormControl(''),
     nome: new FormControl(''),
     cargaHoraria: new FormControl(null),
     cargo: new FormControl(''),

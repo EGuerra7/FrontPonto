@@ -3,9 +3,9 @@
   <div class="bluebox-container-itens">
     <h1>Retroativo</h1>
     <form class="bluebox-formulario" [formGroup]="pontoForm">
-      <mat-select formControlName="usuarioIdentificador" placeholder="Funcionário">
+      <mat-select formControlName="usuarioId" placeholder="Funcionário">
         @for (usuario of listaDeUsuarios; track usuario) {
-          <mat-option [value]="usuario.identificador">{{usuario.nome}}</mat-option>
+          <mat-option [value]="usuario.id">{{usuario.nome}}</mat-option>
         }
       </mat-select>
       <input type="text" formControlName="data" placeholder="Data">

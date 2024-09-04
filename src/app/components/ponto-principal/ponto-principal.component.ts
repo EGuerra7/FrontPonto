@@ -23,8 +23,8 @@ export class PontoPrincipalComponent {
   usuario: Usuario = new Usuario();
 
   pontoForm: FormGroup = new FormGroup({
-    usuarioIdentificador: new FormControl(""),
-    usuarioId: new FormControl("", Validators.required),
+    usuarioId: new FormControl(null),
+    usuarioRfid: new FormControl("", Validators.required),
     data: new FormControl(null),
     horaInicial: new FormControl(""),
     horaFinal: new FormControl(null),
@@ -43,9 +43,9 @@ export class PontoPrincipalComponent {
   buscarUsuarioPorId() {
     const pontoData: Ponto = this.pontoForm.value;
 
-    this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(response => {
-        this.usuario = response;
-        this.cdr.detectChanges();
+    this.usuarioService.BuscaUmPorRfid(pontoData.usuarioRfid!).subscribe(response => {
+      this.usuario = response;
+      this.cdr.detectChanges();
     }, error => {
       this.showError("ID não cadastrado ou inativo!");
     })
@@ -59,8 +59,8 @@ export class PontoPrincipalComponent {
 
 
       const pontoEntrada: Ponto = new Ponto();
-      pontoEntrada.usuarioIdentificador = this.usuario.identificador;
-      pontoEntrada.usuarioId = pontoData.usuarioId;
+      pontoEntrada.usuarioId = this.usuario.id;
+      pontoEntrada.usuarioRfid = pontoData.usuarioRfid;
       pontoEntrada.data = dataFormatada;
       pontoEntrada.horaInicial = horaFormatada;
       pontoEntrada.descricao = pontoData.descricao;
@@ -86,6 +86,7 @@ export class PontoPrincipalComponent {
 
       let pontoSaida: Ponto = new Ponto();
       pontoSaida.usuarioId = pontoData.usuarioId;
+      pontoData.usuarioRfid = pontoData.usuarioRfid;
       pontoSaida.data = dataFormatada;
       pontoSaida.horaFinal = horaFormatada;
       if (pontoSaida.data || pontoSaida.horaFinal || pontoSaida.descricao) {

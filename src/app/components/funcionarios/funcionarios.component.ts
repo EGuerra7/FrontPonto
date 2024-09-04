@@ -42,8 +42,8 @@ export class FuncionariosComponent implements OnInit {
 
   relatorioIndividual(usuario: Usuario) {
     const userData = {
-      identificador: usuario.identificador,
       id: usuario.id,
+      rfid: usuario.rfid,
       nome: usuario.nome,
       cargo: usuario.cargo,
       cargaHoraria: usuario.cargaHoraria,
@@ -60,8 +60,8 @@ export class FuncionariosComponent implements OnInit {
 
   openDialog(usuario: Usuario) {
     const userData = {
-      identificador: usuario.identificador,
       id: usuario.id,
+      rfid: usuario.rfid,
       nome: usuario.nome,
       cargo: usuario.cargo,
       cargaHoraria: usuario.cargaHoraria,

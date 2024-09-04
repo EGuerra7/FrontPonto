@@ -127,3 +127,14 @@ tbody td {
     padding: 5px;
   }
 }
+
+@media (width <= 400px){
+  table{
+    font-size: 10px;
+  }
+
+  tbody td, thead td{
+    padding: 3px;
+  }
+
+}

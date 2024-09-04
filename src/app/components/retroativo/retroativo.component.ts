@@ -25,8 +25,8 @@ import { ToastrService } from 'ngx-toastr';
 export class RetroativoComponent implements OnInit {
   listaDeUsuarios: Usuario[] = [];
   pontoForm: FormGroup = new FormGroup({
-    usuarioIdentificador: new FormControl(null),
-    usuarioId: new FormControl(""),
+    usuarioId: new FormControl(null),
+    usuarioRfid: new FormControl(""),
     data: new FormControl(""),
     horaInicial: new FormControl(""),
     horaFinal: new FormControl(""),
@@ -48,7 +48,7 @@ export class RetroativoComponent implements OnInit {
 
   buscarUsuarios() {
     this.usuarioService.buscarUsuarios().subscribe((response: Usuario[]) => {
-      this.listaDeUsuarios = response;
+      this.listaDeUsuarios = response.filter(usuario => usuario.ativo === true);;
       this.cdr.detectChanges();
     }, (error) => {
       console.log('Error ao buscar os usuários', error);
@@ -58,8 +58,8 @@ export class RetroativoComponent implements OnInit {
 
   pontoRetroativo() {
     const pontoData: Ponto = this.pontoForm.value;
-    this.usuarioService.BuscaUmPorIdentificador(pontoData.usuarioIdentificador!).subscribe(usuario => {
-      pontoData.usuarioId = usuario.id;
+    this.usuarioService.BuscaUmPorId(pontoData.usuarioId!).subscribe(usuario => {
+      pontoData.usuarioRfid = usuario.rfid;
 
       const dataFormatada = this.converterDataParaFormatoBackend(pontoData.data!);
 

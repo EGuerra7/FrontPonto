@@ -6,8 +6,8 @@ export class Ponto {
   horaInicial?: Time | string;
   horaFinal?: Time | string;
   data?: string;
-  usuarioId?: string;
-  usuarioIdentificador?: number;
+  usuarioRfid?: string;
+  usuarioId?: number;
   usuario?: string;
   horasFeitas?: number;
   horasFormatadas?: string;
