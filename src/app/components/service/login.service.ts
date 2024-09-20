@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
 
-  private readonly API = 'https://backponto.onrender.com/login'
+  private readonly API = 'https://backponto.onrender.com/usuario/login'
 
   constructor(private http: HttpClient, private router: Router) { }
 
