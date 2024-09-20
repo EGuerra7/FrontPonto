@@ -9,7 +9,7 @@ import { PontosMensais } from '../model/pontosMensais.model';
 })
 export class PontoService {
 
-  private readonly API = 'http://localhost:8080/ponto'
+  private readonly API = 'https://backponto.onrender.com/ponto'
 
   constructor(private http: HttpClient) { }
 
