@@ -12,4 +12,5 @@ export class Ponto {
   horasFeitas?: number;
   horasFormatadas?: string;
   descricao?: string;
+  ativo?: boolean;
 }

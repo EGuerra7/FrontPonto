@@ -12,7 +12,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class UsuarioService {
 
-  private readonly API = 'https://backponto.onrender.com/usuario'
+  private readonly API = 'http://localhost:8080/usuario'
 
   constructor(private http: HttpClient) { }
 

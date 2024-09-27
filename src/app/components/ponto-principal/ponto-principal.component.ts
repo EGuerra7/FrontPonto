@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
 import { HeaderComponent } from "../shared/header/header.component";
 import { PontoService } from '../service/ponto.service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Ponto } from '../model/ponto.model';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../service/usuario.service';
@@ -28,7 +28,8 @@ export class PontoPrincipalComponent {
     data: new FormControl(null),
     horaInicial: new FormControl(""),
     horaFinal: new FormControl(null),
-    descricao: new FormControl("Padrão")
+    descricao: new FormControl("Padrão"),
+    ativo: new FormControl(true)
   })
 
 
@@ -64,6 +65,7 @@ export class PontoPrincipalComponent {
       pontoEntrada.data = dataFormatada;
       pontoEntrada.horaInicial = horaFormatada;
       pontoEntrada.descricao = pontoData.descricao;
+      pontoEntrada.ativo = pontoData.ativo;
       if (pontoEntrada.data || pontoEntrada.horaInicial || pontoEntrada.descricao) {
         this.pontoService.registrar(pontoEntrada).subscribe(response => {
           this.showSuccess(horaFormatada, "Ponto aberto!")
@@ -86,7 +88,7 @@ export class PontoPrincipalComponent {
 
       let pontoSaida: Ponto = new Ponto();
       pontoSaida.usuarioId = pontoData.usuarioId;
-      pontoData.usuarioRfid = pontoData.usuarioRfid;
+      pontoSaida.usuarioRfid = pontoData.usuarioRfid;
       pontoSaida.data = dataFormatada;
       pontoSaida.horaFinal = horaFormatada;
       if (pontoSaida.data || pontoSaida.horaFinal || pontoSaida.descricao) {

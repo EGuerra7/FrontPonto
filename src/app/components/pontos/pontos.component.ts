@@ -5,26 +5,31 @@ import { PontoService } from '../service/ponto.service';
 import { Ponto } from '../model/ponto.model';
 import { CommonModule, DatePipe } from '@angular/common';
 import { UsuarioService } from '../service/usuario.service';
-import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-pontos',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, DatePipe, FooterComponent],
+  imports: [HeaderComponent, CommonModule, DatePipe, FooterComponent, FormsModule, ReactiveFormsModule, MatSlideToggleModule],
   templateUrl: './pontos.component.html',
   styleUrl: './pontos.component.css'
 })
 export class PontosComponent implements OnInit {
 
   listaDePontos: Ponto[] = [];
+  searchTerm: string = '';
+  filteredPontos: Ponto[] = [];
   usuario: Usuario = new Usuario();
 
   constructor(private pontoService: PontoService, private usuarioService: UsuarioService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.buscarPontos()
+    this.buscarPontos();
+
   }
 
 
@@ -33,7 +38,7 @@ export class PontosComponent implements OnInit {
   buscarPontos() {
     this.pontoService.buscarPontos().subscribe((response: Ponto[]) => {
       this.listaDePontos = response;
-      this.cdr.detectChanges();
+
 
       this.listaDePontos = response.map(ponto => ({
         ...ponto,
@@ -53,6 +58,9 @@ export class PontosComponent implements OnInit {
       // Combine todos os observables e atualize a lista de pontos com os nomes dos usuários
       forkJoin(userRequests).subscribe(pontosComUsuarios => {
         this.listaDePontos = pontosComUsuarios;
+
+        // Atualize a lista filtrada com todos os pontos ao iniciar
+        this.filteredPontos = [...this.listaDePontos];
       }, (error) => {
         console.log('Error ao buscar os usuários', error);
       });
@@ -60,11 +68,32 @@ export class PontosComponent implements OnInit {
       console.log('Error ao buscar os pontos', error);
     });
   }
+  filterUsuarios() {
+    if (this.searchTerm) {
+      this.filteredPontos = this.listaDePontos.filter(ponto =>
+        ponto.usuario!.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredPontos = [...this.listaDePontos];
+    }
+  }
+
+  onToggleChange(ponto: Ponto, event: any) {
+    ponto.ativo = event.checked;
+
+    this.pontoService.ativo(ponto).subscribe(response => {
+      console.log('Status atualizado com sucesso', response);
+    }, error => {
+      console.error('Erro ao atualizar o status', error);
+    });
+  };
+
 
   formatarHoras(minutos: number): string {
     const horas = Math.floor(minutos / 60);
     const minutosRestantes = minutos % 60;
     return `${horas}h ${minutosRestantes}m`;
   }
+
 
 }

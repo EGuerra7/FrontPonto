@@ -9,7 +9,7 @@ import { PontosMensais } from '../model/pontosMensais.model';
 })
 export class PontoService {
 
-  private readonly API = 'https://backponto.onrender.com/ponto'
+  private readonly API = 'http://localhost:8080/ponto'
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +35,10 @@ export class PontoService {
 
   public buscarMensal(id: number): Observable<PontosMensais> {
     return this.http.get<PontosMensais>(this.API + "/mensal/" + id);
+  }
+
+  public ativo(ponto: Ponto): Observable<Ponto> {
+    return this.http.put<Ponto>(this.API + "/" + ponto.id, { ativo: ponto.ativo });
   }
 
 }

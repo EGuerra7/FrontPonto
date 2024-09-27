@@ -7,8 +7,22 @@ main{
   font-family: var(--fonte);
 }
 
+
 h1{
   font-size: 40px;
+}
+
+input{
+  background-color:transparent;
+  border: 2px solid var(--cor-principal);
+  width: 300px;
+  padding: 5px;
+  border-radius: 8px;
+  font-family: var(--fonte);
+
+  &::placeholder{
+    color: var(--cor-principal);
+  }
 }
 
 table{

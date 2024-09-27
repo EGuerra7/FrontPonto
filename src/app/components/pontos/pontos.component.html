@@ -1,6 +1,9 @@
 <app-header [showNav]="true" [layout]="'space-between'"></app-header>
 <main>
-  <h1>Pontos</h1>
+  <div class="pontos-titulo">
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterUsuarios()"  placeholder="Pesquise o funcionário...">
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -10,16 +13,20 @@
         <td>Hora Final</td>
         <td>Horas Feitas</td>
         <td>Descricão</td>
+        <td>Ativo</td>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ponto of listaDePontos">
+      <tr *ngFor="let ponto of filteredPontos">
         <td>{{ ponto.usuario }}</td>
         <td>{{ ponto.data | date:'dd/MM/yyyy' }}</td>
         <td>{{ ponto.horaInicial }}</td>
         <td>{{ ponto.horaFinal }}</td>
         <td>{{ ponto.horasFormatadas }}</td>
         <td>{{ ponto.descricao }}</td>
+        <td><mat-slide-toggle
+          [checked]="ponto.ativo"
+          (change)="onToggleChange(ponto, $event)"></mat-slide-toggle></td>
       </tr>
     </tbody>
   </table>
