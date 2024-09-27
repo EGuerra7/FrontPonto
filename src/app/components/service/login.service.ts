@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
 
+<<<<<<< HEAD
   private readonly API = 'http://localhost:8080/usuario/login'
+=======
+  private readonly API = 'https://backponto.onrender.com/usuario/login'
+>>>>>>> 3fd7cb1867ab8ec6911c0f36b1dbfb82b6cc625b
 
   constructor(private http: HttpClient, private router: Router) { }
 
