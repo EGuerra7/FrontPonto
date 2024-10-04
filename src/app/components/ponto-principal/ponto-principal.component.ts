@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
 import { HeaderComponent } from "../shared/header/header.component";
 import { PontoService } from '../service/ponto.service';
@@ -7,6 +7,10 @@ import { Ponto } from '../model/ponto.model';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../model/usuario.model';
+import { RfidService } from '../service/rfid.service';
+import { interval, Subscription } from 'rxjs';
+
+
 
 
 
@@ -18,9 +22,13 @@ import { Usuario } from '../model/usuario.model';
   templateUrl: './ponto-principal.component.html',
   styleUrl: './ponto-principal.component.css'
 })
-export class PontoPrincipalComponent {
+export class PontoPrincipalComponent implements OnInit {
 
+  private subscription!: Subscription
   usuario: Usuario = new Usuario();
+  ultimoRfid: string | null = null;
+
+
 
   pontoForm: FormGroup = new FormGroup({
     usuarioId: new FormControl(null),
@@ -37,8 +45,33 @@ export class PontoPrincipalComponent {
     private pontoService: PontoService,
     private usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private rfidService: RfidService
   ) { }
+
+  ngOnInit() {
+    this.fetchLatestRFID();
+
+    this.subscription = this.subscription = interval(5000).subscribe(() => {
+      this.fetchLatestRFID();
+    });
+  }
+
+  fetchLatestRFID() {
+    this.rfidService.getRFID().subscribe({
+      next: (response) => {
+        if (response !== this.ultimoRfid) {
+          this.ultimoRfid = response;
+          this.pontoForm.get('usuarioRfid')?.setValue(this.ultimoRfid);
+          this.buscarUsuarioPorId();
+        }
+      },
+      error: (err) => {
+        this.showError("ID não cadastrado ou inativo!");
+      }
+    });
+  }
+
 
 
   buscarUsuarioPorId() {
@@ -48,7 +81,7 @@ export class PontoPrincipalComponent {
       this.usuario = response;
       this.cdr.detectChanges();
     }, error => {
-      this.showError("ID não cadastrado ou inativo!");
+      console.log(error)
     })
   }
 

@@ -7,7 +7,7 @@
         <p>{{ usuario.cargo }}</p>
         <form [formGroup]="pontoForm">
           <label>ID:</label>
-          <input type="text" (ngModelChange)="buscarUsuarioPorId()" formControlName="usuarioRfid">
+          <input type="text" (ngModelChange)="buscarUsuarioPorId()" formControlName="usuarioRfid" readonly>
         </form>
       </div>
       <div class="botoes">

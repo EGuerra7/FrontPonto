@@ -12,7 +12,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class UsuarioService {
 
-  private readonly API = 'http://localhost:8080/usuario'
+  private readonly API = 'http://192.168.68.36:8080/usuario'
 
   constructor(private http: HttpClient) { }
 
