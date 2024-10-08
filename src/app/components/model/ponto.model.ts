@@ -8,7 +8,7 @@ export class Ponto {
   data?: string;
   usuarioRfid?: string;
   usuarioId?: number;
-  usuario?: string;
+  usuario?: string | null;
   horasFeitas?: number;
   horasFormatadas?: string;
   descricao?: string;

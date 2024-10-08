@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
 import { HeaderComponent } from "../shared/header/header.component";
 import { PontoService } from '../service/ponto.service';
@@ -9,6 +9,7 @@ import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../model/usuario.model';
 import { RfidService } from '../service/rfid.service';
 import { interval, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -18,73 +19,80 @@ import { interval, Subscription } from 'rxjs';
   selector: 'app-ponto-principal',
   standalone: true,
   imports: [BlueboxComponent, HeaderComponent,
-    ReactiveFormsModule],
+    ReactiveFormsModule, CommonModule],
   templateUrl: './ponto-principal.component.html',
   styleUrl: './ponto-principal.component.css'
 })
 export class PontoPrincipalComponent implements OnInit {
-
-  private subscription!: Subscription
-  usuario: Usuario = new Usuario();
+  usuario: Usuario | null = null;
   ultimoRfid: string | null = null;
-
-
-
-  pontoForm: FormGroup = new FormGroup({
-    usuarioId: new FormControl(null),
-    usuarioRfid: new FormControl("", Validators.required),
-    data: new FormControl(null),
-    horaInicial: new FormControl(""),
-    horaFinal: new FormControl(null),
-    descricao: new FormControl("Padrão"),
-    ativo: new FormControl(true)
-  })
-
+  pontoForm: FormGroup;
+  private subscription!: Subscription;
 
   constructor(
     private pontoService: PontoService,
     private usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
-    private rfidService: RfidService
-  ) { }
-
-  ngOnInit() {
-    this.fetchLatestRFID();
-
-    this.subscription = this.subscription = interval(5000).subscribe(() => {
-      this.fetchLatestRFID();
+    private rfidService: RfidService,
+    private ngZone: NgZone
+  ) {
+    this.pontoForm = new FormGroup({
+      usuarioId: new FormControl(null),
+      usuarioRfid: new FormControl('', Validators.required),
+      data: new FormControl(null),
+      horaInicial: new FormControl(''),
+      horaFinal: new FormControl(null),
+      descricao: new FormControl('Padrão'),
+      ativo: new FormControl(true)
     });
   }
 
+  ngOnInit() {
+      this.fetchLatestRFID(); 
+  }
+
+
   fetchLatestRFID() {
-    this.rfidService.getRFID().subscribe({
+    this.rfidService.getRfid().subscribe({
       next: (response) => {
         if (response !== this.ultimoRfid) {
           this.ultimoRfid = response;
-          this.pontoForm.get('usuarioRfid')?.setValue(this.ultimoRfid);
-          this.buscarUsuarioPorId();
+          this.buscarUsuarioPorRfid();
+          
+          this.pontoForm.get('usuarioRfid')?.setValue(this.ultimoRfid); 
+
+        if(response != "" && typeof window !== 'undefined'){
+          setTimeout(() => {
+            window.location.reload();
+          }, 4000);
+        } else {
+          console.warn('RFID: ' + this.ultimoRfid);
+        }
+      
+          
         }
       },
-      error: (err) => {
-        this.showError("ID não cadastrado ou inativo!");
+      error: () => {
+        console.log('ID não cadastrado ou inativo!');
       }
     });
   }
 
-
-
-  buscarUsuarioPorId() {
-    const pontoData: Ponto = this.pontoForm.value;
-
-    this.usuarioService.BuscaUmPorRfid(pontoData.usuarioRfid!).subscribe(response => {
-      this.usuario = response;
-      this.cdr.detectChanges();
-    }, error => {
-      console.log(error)
-    })
+  buscarUsuarioPorRfid() {
+    this.usuarioService.BuscaUmPorRfid(this.ultimoRfid!).subscribe({
+      next: (response) => {
+        this.usuario = response ? response : null;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Erro ao buscar usuário:', error);
+        this.usuario = null;
+        this.cdr.detectChanges();
+      }
+    });
   }
-
+  
   entrada() {
     if (this.pontoForm.valid) {
       const pontoData: Ponto = this.pontoForm.value;
@@ -93,7 +101,7 @@ export class PontoPrincipalComponent implements OnInit {
 
 
       const pontoEntrada: Ponto = new Ponto();
-      pontoEntrada.usuarioId = this.usuario.id;
+      pontoEntrada.usuarioId = this.usuario?.id;
       pontoEntrada.usuarioRfid = pontoData.usuarioRfid;
       pontoEntrada.data = dataFormatada;
       pontoEntrada.horaInicial = horaFormatada;

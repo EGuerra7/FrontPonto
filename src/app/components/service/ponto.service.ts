@@ -9,7 +9,7 @@ import { PontosMensais } from '../model/pontosMensais.model';
 })
 export class PontoService {
 
-  private readonly API = 'http://192.168.68.36:8080/ponto'
+  private readonly API = 'http://192.168.2.102:8080/ponto'
 
   constructor(private http: HttpClient) { }
 

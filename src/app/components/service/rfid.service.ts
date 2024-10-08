@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class RfidService {
 
-  private readonly API = 'http://192.168.68.36:8080/rfid'
+  private readonly API = 'http://192.168.2.102:8080/rfid'
 
   constructor(private http: HttpClient) { }
 
-  getRFID(): Observable<string> {
+  getRfid(): Observable<string> {
     return this.http.get<string>(this.API, { responseType: 'text' as 'json' });
   }
 }

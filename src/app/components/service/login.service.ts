@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
 
-  private readonly API = 'http://192.168.68.36:8080/usuario/login'
+  private readonly API = 'http://192.168.2.102:8080/usuario/login'
 
   constructor(private http: HttpClient, private router: Router) { }
 

@@ -3,11 +3,11 @@
   <app-bluebox>
     <main class="container">
       <div class="infos">
-        <h1>{{ usuario.nome }}</h1>
-        <p>{{ usuario.cargo }}</p>
+        <h1 *ngIf="usuario">{{ usuario!.nome || null  }}</h1>
+        <p *ngIf="usuario">{{ usuario!.cargo }}</p>
         <form [formGroup]="pontoForm">
           <label>ID:</label>
-          <input type="text" (ngModelChange)="buscarUsuarioPorId()" formControlName="usuarioRfid" readonly>
+          <input type="text"  formControlName="usuarioRfid" readonly>
         </form>
       </div>
       <div class="botoes">
