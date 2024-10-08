@@ -4,12 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from "../shared/footer/footer.component";
 import { ToastrService } from 'ngx-toastr';
+import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, CommonModule, FooterComponent],
+  imports: [RouterModule, CommonModule, FooterComponent, BlueboxComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

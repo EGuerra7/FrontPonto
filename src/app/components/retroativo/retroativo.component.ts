@@ -30,7 +30,8 @@ export class RetroativoComponent implements OnInit {
     data: new FormControl(""),
     horaInicial: new FormControl(""),
     horaFinal: new FormControl(""),
-    descricao: new FormControl("")
+    descricao: new FormControl(""),
+    ativo: new FormControl(true)
   })
 
 

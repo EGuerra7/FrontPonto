@@ -12,7 +12,11 @@
   background-color: var(--cor-principal);
   color: var(--cor-secundaria);
 }
-
+@media (width <= 800px){
+  .bluebox-container{
+    padding: 30px;
+  }
+}
 @media (width <= 460px){
   .bluebox-container{
     padding: 37px 35px;

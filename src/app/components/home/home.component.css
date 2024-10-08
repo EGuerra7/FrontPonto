@@ -1,60 +1,59 @@
 main{
   margin: 0;
   padding: 0;
-  background-color: var(--cor-principal);
+  background-image: url(../../../assets/background.png);
   color: var(--cor-secundaria);
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
-header{
+
+.menu{
   display: flex;
-  align-items: center;
-  gap: 2em;
-  padding: 1em 4em;
+  flex-direction: column;
+  margin: 0 70px 30px;
 }
 
 .usuario{
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid var(--cor-secundaria);
 }
 
-.usuario p{
-  margin: 0;
-  padding: 0;
+.usuario h1{
+  font-weight: 500;
+  padding-bottom: 20px;
+}
+
+.logo{
+  width: 70px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
 }
 
 .btn-logout{
+  display: flex;
   font-size: 20px;
-  background-color: red;
-  color: var(--cor-secundaria);
+  background: transparent;
   border: 0;
-  border-radius: 10px;
-  padding: 5px 8px;
+  color: var(--cor-secundaria);
   cursor: pointer;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
   transition: .2s;
 
   &:hover{
     transform: scale(1.05);
-    color: rgb(160, 4, 4);
+    color: red;
   }
 }
 
 p{
   text-align: center;
-}
-.Logo-principal{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.Logo-principal img{
-  width: 330px;
 }
 
 nav{
@@ -66,15 +65,23 @@ nav{
 }
 
 nav button{
+  display: flex;
   width: auto;
-  font-size: 30px;
+  font-size: 20px;
   background-color: transparent;
   border: 0;
-  color: var(--cor-secundaria);
+  color: var(--cor-texto);
   transition: .2s;
   cursor: pointer;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  gap: 10px;
+  height: 50px;
+  width: 310px;
+  padding: 10px;
   &:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 

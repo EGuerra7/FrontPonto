@@ -3,8 +3,9 @@
 @import 'ngx-toastr/toastr';
 
 :root{
-  --cor-principal: #00008B;
+  --cor-principal: #08273A;
   --cor-secundaria: #FFFFFF;
+  --cor-texto: #000000;
   --fonte: "Poppins", sans-serif;
 }
 html, body{

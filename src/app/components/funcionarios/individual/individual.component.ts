@@ -34,14 +34,20 @@ export class IndividualComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.userData = params;
+  
+      if (this.userData?.id) {
+        this.buscarPontos();
+        this.buscarPorMes();
+        this.userLogin = this.loginService.obterUsuario();
+      } else {
+        console.error('ID do usuário não encontrado nos parâmetros.');
+      }
     });
-    this.buscarPontos();
-    this.buscarPorMes();
-    this.userLogin = this.loginService.obterUsuario();
   }
 
   buscarPontos() {
     this.pontoService.buscarPontosIndividuais(this.userData?.id!).subscribe((response: Ponto[]) => {
+      console.log('Dados recebidos:', response);
       this.listaDePontos = response.map(ponto => ({
         ...ponto,
         horasFormatadas: this.formatarHoras(ponto.horasFeitas!)
@@ -79,16 +85,15 @@ export class IndividualComponent implements OnInit {
 
   buscarPorMes() {
     this.pontoService.buscarMensal(this.userData?.id!).subscribe((response: PontosMensais) => {
-      this.listaMensalDePontos = {}; // Inicializamos o objeto
-
-      // Iteramos sobre as chaves do objeto response
+      this.listaMensalDePontos = {}; 
+  
       for (const mes in response) {
         if (response.hasOwnProperty(mes)) {
-          const totalMinutos = response[mes] as number; // Já garantimos que totalMinutos é um número
-          this.listaMensalDePontos[mes] = this.formatarHoras(totalMinutos); // Armazenamos a string formatada
+          const totalMinutos = response[mes] as number; 
+          this.listaMensalDePontos[mes] = this.formatarHoras(totalMinutos); 
         }
       }
-
+  
       this.cdr.detectChanges();
     }, (error) => {
       console.log('Erro ao buscar os pontos mensais', error);
@@ -96,10 +101,11 @@ export class IndividualComponent implements OnInit {
   }
 
   formatarMesAno(data: string): string {
-    const date = new Date(data);
-    const mes = date.getMonth() + 1;
-    const ano = date.getFullYear();
-    return `${mes.toString().padStart(2, '0')}/${ano}`;
+   // Separar a string da data manualmente para evitar problemas de timezone
+  const [ano, mes] = data.split('-');
+  
+  // Retorna no formato MM/YYYY
+  return `${mes}/${ano}`;
   }
 
 

@@ -1,20 +1,32 @@
 <main>
-  <header>
+  <app-bluebox>
+    <section class="menu">
+    <img src="../../../assets/Logo Fund Branca 1.svg" class="logo">
     <div class="usuario">
-      <p *ngIf="usuario">{{ usuario.nomeFormatado }}</p>
-      <p>{{ usuario.cargo }}</p>
+      <h1 *ngIf="usuario">Olá {{ usuario.nomeFormatado }}!</h1>
     </div>
-    <button class="btn-logout" (click)="logout()">Logout</button>
-  </header>
-  <div class="Logo-principal">
-    <img src="/assets/Logo Fund Branca 1.svg">
-    <h1>Ponto Eletrônico</h1>
-  </div>
+    
   <nav>
-    <button [routerLink]="['/pontos']">Pontos</button>
-    <button [routerLink]="['/retroativo']">Retroativo</button>
-    <button [routerLink]="['/relatorio']">Relatório</button>
+    <button [routerLink]="['/pontos']">
+      <img class="btn-icon" src="../../../assets/relogioIcon.png">
+      Histórico de Pontos
+    </button>
+    <button [routerLink]="['/retroativo']">
+      <img class="btn-icon" src="../../../assets/retroativoIcon.png">
+      Ajustes Retroativos
+    </button>
+    <button [routerLink]="['/relatorio']">
+      <img class="btn-icon" src="../../../assets/colabIcon.png">
+      Gestão de Colaboradores
+    </button>
   </nav>
+
+  <button class="btn-logout" (click)="logout()">
+    <img src="../../../assets/sairIcon.png">
+    Sair
+  </button>
+</section>
+</app-bluebox>
 </main>
 <app-footer></app-footer>
 
