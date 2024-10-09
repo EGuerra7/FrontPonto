@@ -85,4 +85,29 @@ nav button{
   }
 }
 
+@media (width <= 800px){
+  .menu{
+    margin: 0px;
+    padding: 15px;
+  }
+  .logo{
+    display: none;
+  }
+  nav button{
+    width: 200px;
+    font-size: 17px;
+  }
+
+  nav button img{
+    width: 25px;
+  }
+
+  .btn-logout{
+    font-size: 15px;
+  }
+  .btn-logout img{
+    width: 20px;
+  }
+}
+
 

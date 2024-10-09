@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { LoginService } from './../service/login.service';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from "../shared/footer/footer.component";
 import { ToastrService } from 'ngx-toastr';
 import { BlueboxComponent } from "../shared/bluebox/bluebox.component";
+import { Usuario } from '../model/usuario.model';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   usuario: any;
 
-  constructor(private loginService: LoginService, private toastr: ToastrService){}
+  constructor(private loginService: LoginService, private toastr: ToastrService, private router: Router,){}
 
   ngOnInit(){
     const usuarioCompleto = this.loginService.obterUsuario();
@@ -31,6 +32,21 @@ export class HomeComponent implements OnInit {
     } else {
       this.usuario = usuarioCompleto; // ou defina um valor padrão
     };
+  }
+
+  relatorioIndividual(usuario: Usuario) {
+    const userData = {
+      id: usuario.id,
+      rfid: usuario.rfid,
+      nome: usuario.nome,
+      cargo: usuario.cargo,
+      cargaHoraria: usuario.cargaHoraria,
+      email: usuario.email,
+      senha: usuario.senha,
+      permissao: usuario.permissao
+    };
+
+    this.router.navigate(['/relatorioIndividual'], { queryParams: userData });
   }
 
   logout(){

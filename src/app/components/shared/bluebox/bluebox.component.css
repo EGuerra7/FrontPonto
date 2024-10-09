@@ -22,9 +22,11 @@
     padding: 37px 35px;
   }
 }
-@media (width <= 340px){
+@media (width <= 390px){
   .bluebox-container{
-    padding: 20px;
+    padding: 0;
+    left: 0;
+    
   }
 }
 
