@@ -1,5 +1,5 @@
 .bluebox-container{
-  margin-top: 2em;
+  margin: 1em 0;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -20,13 +20,6 @@
 @media (width <= 460px){
   .bluebox-container{
     padding: 37px 35px;
-  }
-}
-@media (width <= 390px){
-  .bluebox-container{
-    padding: 0;
-    left: 0;
-    
   }
 }
 

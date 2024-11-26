@@ -10,6 +10,7 @@ import { Usuario } from '../model/usuario.model';
 import { RfidService } from '../service/rfid.service';
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from "../shared/footer/footer.component";
 
 
 
@@ -19,7 +20,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-ponto-principal',
   standalone: true,
   imports: [BlueboxComponent, HeaderComponent,
-    ReactiveFormsModule, CommonModule],
+    ReactiveFormsModule, CommonModule, FooterComponent],
   templateUrl: './ponto-principal.component.html',
   styleUrl: './ponto-principal.component.css'
 })
@@ -49,7 +50,7 @@ export class PontoPrincipalComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.fetchLatestRFID(); 
+    this.fetchLatestRFID();
   }
 
 
@@ -59,18 +60,18 @@ export class PontoPrincipalComponent implements OnInit {
         if (response !== this.ultimoRfid) {
           this.ultimoRfid = response;
           this.buscarUsuarioPorRfid();
-          
-          this.pontoForm.get('usuarioRfid')?.setValue(this.ultimoRfid); 
 
-        if(response != "" && typeof window !== 'undefined'){
-          setTimeout(() => {
-            window.location.reload();
-          }, 4000);
-        } else {
-          console.warn('RFID: ' + this.ultimoRfid);
-        }
-      
-          
+          this.pontoForm.get('usuarioRfid')?.setValue(this.ultimoRfid);
+
+          if (response != "" && typeof window !== 'undefined') {
+            setTimeout(() => {
+              window.location.reload();
+            }, 4000);
+          } else {
+            console.warn('RFID: ' + this.ultimoRfid);
+          }
+
+
         }
       },
       error: () => {
@@ -92,7 +93,7 @@ export class PontoPrincipalComponent implements OnInit {
       }
     });
   }
-  
+
   entrada() {
     if (this.pontoForm.valid) {
       const pontoData: Ponto = this.pontoForm.value;

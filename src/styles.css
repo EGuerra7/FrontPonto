@@ -3,7 +3,7 @@
 @import 'ngx-toastr/toastr';
 
 :root{
-  --cor-principal: #08273A;
+  --cor-principal: #1F6777;
   --cor-secundaria: #FFFFFF;
   --cor-texto: #000000;
   --fonte: "Poppins", sans-serif;
@@ -15,9 +15,3 @@ html, body{
   font-family: var(--fonte);
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
